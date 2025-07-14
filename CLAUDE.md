@@ -89,9 +89,9 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 
 ## 🔄 Project Awareness & Context
 
-- **Always read this `CLAUDE.md`** at the start of a new conversation to understand the project's architecture, goals, and constraints
+- **Always read this `PLANING.md`** at the start of a new conversation to understand the project's architecture, goals, and constraints
 - **Check `TASK.md`** before starting a new task. If the task isn't listed, add it with a brief description and today's date
-- **Use consistent naming conventions, file structure, and architecture patterns** as described in this document
+- **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANING.md`
 - **Follow the existing package structure** when adding new features or modules
 
 ## 🧱 Code Structure & Modularity
