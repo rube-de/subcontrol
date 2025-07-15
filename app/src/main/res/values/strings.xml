@@ -78,4 +78,48 @@
     <string name="notification_permission_message">SubControl needs notification permission to remind you about upcoming subscription payments.</string>
     <string name="notification_permission_allow">Allow</string>
     <string name="notification_permission_deny">Not now</string>
+    
+    <!-- Backup & Restore -->
+    <string name="backup_restore_title">Backup &amp; Restore</string>
+    <string name="backup_restore_description">Export and import your subscription data</string>
+    <string name="create_backup">Create Backup</string>
+    <string name="create_backup_description">Create an encrypted backup of all your subscription data. The backup file will be saved to your chosen location.</string>
+    <string name="creating_backup">Creating Backup…</string>
+    <string name="backup_success">Backup created successfully: %1$s\n%2$d subscriptions backed up</string>
+    <string name="backup_failed">Backup failed: %1$s</string>
+    
+    <string name="restore_backup">Restore Backup</string>
+    <string name="restore_backup_description">Select a backup file to restore your subscription data. The backup file must be encrypted with this app.</string>
+    <string name="select_backup_file">Select Backup File</string>
+    <string name="replace_existing_subscriptions">Replace existing subscriptions</string>
+    <string name="restoring">Restoring…</string>
+    <string name="restore_success">Restore completed successfully!\n%1$d subscriptions restored</string>
+    <string name="restore_failed">Restore failed: %1$s</string>
+    
+    <!-- Backup validation -->
+    <string name="valid_backup_file">Valid backup file with %1$d subscriptions</string>
+    <string name="invalid_backup_file">Invalid backup file: %1$s</string>
+    <string name="invalid_file_format">Invalid file format. Expected .scb file</string>
+    <string name="cannot_read_backup">Cannot read backup file</string>
+    <string name="security_error_backup">Security error: Cannot access backup file</string>
+    <string name="io_error_backup">IO error: Failed to read backup file</string>
+    <string name="decryption_failed">Decryption failed: Invalid backup file or corrupted data</string>
+    
+    <!-- File information -->
+    <string name="file_information">File Information</string>
+    <string name="file_name">Name: %1$s</string>
+    <string name="file_size">Size: %1$s</string>
+    <string name="file_modified">Modified: %1$s</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="more_settings_placeholder">More settings will be added in future updates</string>
+    
+    <!-- Content descriptions for backup -->
+    <string name="cd_backup_icon">Backup icon</string>
+    <string name="cd_restore_icon">Restore icon</string>
+    <string name="cd_info_icon">Information icon</string>
+    <string name="cd_success_icon">Success icon</string>
+    <string name="cd_error_icon">Error icon</string>
+    <string name="cd_chevron_right">Navigate to backup</string>
 </resources>

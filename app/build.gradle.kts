@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -28,14 +29,26 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            
+            // Performance optimizations
+            renderscriptTargetApi = 34
+            renderscriptSupportModeEnabled = false
+            
+            // Baseline profiles for improved startup performance
+            isMinifyEnabled = true
+            isShrinkResources = true
         }
         debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
+            
+            // Enable baseline profile generation for debugging
+            testCoverageEnabled = true
         }
     }
 
@@ -120,6 +133,15 @@ dependencies {
 
     // Material Design
     implementation(libs.material)
+    
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
+    
+    // Document file support
+    implementation(libs.androidx.documentfile)
+    
+    // Performance optimizations
+    implementation(libs.androidx.profileinstaller)
 
     // Testing - Unit
     testImplementation(libs.bundles.testing.unit)

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SubControl</string>
+    
+    <!-- Navigation -->
+    <string name="nav_subscriptions">Abonnements</string>
+    <string name="nav_budgets">Budgets</string>
+    <string name="nav_categories">Kategorien</string>
+    <string name="nav_settings">Einstellungen</string>
+    
+    <!-- General -->
+    <string name="add">Hinzufügen</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
+    <string name="save">Speichern</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="done">Fertig</string>
+    <string name="loading">Wird geladen…</string>
+    <string name="error">Fehler</string>
+    <string name="retry">Erneut versuchen</string>
+    
+    <!-- Subscription related -->
+    <string name="subscription_name">Abonnement-Name</string>
+    <string name="subscription_cost">Kosten</string>
+    <string name="subscription_currency">Währung</string>
+    <string name="subscription_billing_period">Abrechnungsperiode</string>
+    <string name="subscription_next_billing">Nächste Abrechnung</string>
+    <string name="subscription_status">Status</string>
+    
+    <!-- Billing periods -->
+    <string name="billing_period_daily">Täglich</string>
+    <string name="billing_period_weekly">Wöchentlich</string>
+    <string name="billing_period_monthly">Monatlich</string>
+    <string name="billing_period_quarterly">Vierteljährlich</string>
+    <string name="billing_period_semi_annually">Halbjährlich</string>
+    <string name="billing_period_annually">Jährlich</string>
+    
+    <!-- Subscription status -->
+    <string name="status_active">Aktiv</string>
+    <string name="status_trial">Testversion</string>
+    <string name="status_paused">Pausiert</string>
+    <string name="status_cancelled">Gekündigt</string>
+    <string name="status_expired">Abgelaufen</string>
+    
+    <!-- Content descriptions for accessibility -->
+    <string name="cd_add_subscription">Neues Abonnement hinzufügen</string>
+    <string name="cd_edit_subscription">Abonnement bearbeiten</string>
+    <string name="cd_delete_subscription">Abonnement löschen</string>
+    <string name="cd_subscription_status">Abonnement-Status</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard">Dashboard</string>
+    <string name="cost_summary">Kostenübersicht</string>
+    <string name="monthly_total">Monatliche Gesamtsumme</string>
+    <string name="yearly_total">Jährliche Gesamtsumme</string>
+    <string name="upcoming_renewals">Anstehende Verlängerungen</string>
+    <string name="no_upcoming_renewals">Keine Verlängerungen in den nächsten 7 Tagen</string>
+    <string name="active_subscriptions">Aktiv</string>
+    <string name="trial_subscriptions">Testversionen</string>
+    <string name="spending_by_category">Ausgaben nach Kategorie</string>
+    <string name="loading_dashboard">Dashboard wird geladen…</string>
+    <string name="refresh">Aktualisieren</string>
+    
+    <!-- Notification content -->
+    <string name="renewal_notification_title">Abonnement-Verlängerung Erinnerung</string>
+    <string name="renewal_notification_text">Ihr %1$s-Abonnement wird bald verlängert</string>
+    <string name="trial_ending_notification_title">Testversion läuft bald ab</string>
+    <string name="trial_ending_notification_text">Ihre %1$s-Testversion läuft bald ab</string>
+    
+    <!-- Notification channels -->
+    <string name="renewal_notification_channel_name">Verlängerungserinnerungen</string>
+    <string name="renewal_notification_channel_description">Benachrichtigungen für anstehende Abonnement-Verlängerungen</string>
+    <string name="trial_notification_channel_name">Testversion-Erinnerungen</string>
+    <string name="trial_notification_channel_description">Benachrichtigungen für auslaufende Testversionen</string>
+    
+    <!-- Permissions and notifications -->
+    <string name="notification_permission_title">Benachrichtigungen aktivieren</string>
+    <string name="notification_permission_message">SubControl benötigt die Berechtigung für Benachrichtigungen, um Sie an anstehende Abonnement-Zahlungen zu erinnern.</string>
+    <string name="notification_permission_allow">Erlauben</string>
+    <string name="notification_permission_deny">Nicht jetzt</string>
+    
+    <!-- Backup & Restore -->
+    <string name="backup_restore_title">Backup &amp; Wiederherstellung</string>
+    <string name="backup_restore_description">Exportieren und importieren Sie Ihre Abonnement-Daten</string>
+    <string name="create_backup">Backup erstellen</string>
+    <string name="create_backup_description">Erstellen Sie ein verschlüsseltes Backup aller Ihrer Abonnement-Daten. Die Backup-Datei wird an Ihrem gewählten Ort gespeichert.</string>
+    <string name="creating_backup">Backup wird erstellt…</string>
+    <string name="backup_success">Backup erfolgreich erstellt: %1$s\n%2$d Abonnements gesichert</string>
+    <string name="backup_failed">Backup fehlgeschlagen: %1$s</string>
+    
+    <string name="restore_backup">Backup wiederherstellen</string>
+    <string name="restore_backup_description">Wählen Sie eine Backup-Datei aus, um Ihre Abonnement-Daten wiederherzustellen. Die Backup-Datei muss mit dieser App verschlüsselt sein.</string>
+    <string name="select_backup_file">Backup-Datei auswählen</string>
+    <string name="replace_existing_subscriptions">Bestehende Abonnements ersetzen</string>
+    <string name="restoring">Wiederherstellung läuft…</string>
+    <string name="restore_success">Wiederherstellung erfolgreich abgeschlossen!\n%1$d Abonnements wiederhergestellt</string>
+    <string name="restore_failed">Wiederherstellung fehlgeschlagen: %1$s</string>
+    
+    <!-- Backup validation -->
+    <string name="valid_backup_file">Gültige Backup-Datei mit %1$d Abonnements</string>
+    <string name="invalid_backup_file">Ungültige Backup-Datei: %1$s</string>
+    <string name="invalid_file_format">Ungültiges Dateiformat. .scb-Datei erwartet</string>
+    <string name="cannot_read_backup">Backup-Datei kann nicht gelesen werden</string>
+    <string name="security_error_backup">Sicherheitsfehler: Zugriff auf Backup-Datei nicht möglich</string>
+    <string name="io_error_backup">IO-Fehler: Backup-Datei konnte nicht gelesen werden</string>
+    <string name="decryption_failed">Entschlüsselung fehlgeschlagen: Ungültige Backup-Datei oder beschädigte Daten</string>
+    
+    <!-- File information -->
+    <string name="file_information">Dateiinformationen</string>
+    <string name="file_name">Name: %1$s</string>
+    <string name="file_size">Größe: %1$s</string>
+    <string name="file_modified">Geändert: %1$s</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="more_settings_placeholder">Weitere Einstellungen werden in zukünftigen Updates hinzugefügt</string>
+    
+    <!-- Content descriptions for backup -->
+    <string name="cd_backup_icon">Backup-Symbol</string>
+    <string name="cd_restore_icon">Wiederherstellungs-Symbol</string>
+    <string name="cd_info_icon">Informations-Symbol</string>
+    <string name="cd_success_icon">Erfolg-Symbol</string>
+    <string name="cd_error_icon">Fehler-Symbol</string>
+    <string name="cd_chevron_right">Zu Backup navigieren</string>
+</resources>

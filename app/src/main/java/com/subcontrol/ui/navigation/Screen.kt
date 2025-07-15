@@ -36,6 +36,11 @@ sealed class Screen(
     object Settings : Screen("settings")
     
     /**
+     * Backup and restore screen.
+     */
+    object Backup : Screen("backup")
+    
+    /**
      * Add new subscription screen.
      */
     object AddSubscription : Screen("add_subscription")

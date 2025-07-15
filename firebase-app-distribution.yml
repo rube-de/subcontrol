@@ -1,0 +1,62 @@
+# Firebase App Distribution Configuration
+# This file configures Firebase App Distribution for beta testing
+
+# App configuration
+app_id: "your-firebase-app-id"
+project_id: "your-firebase-project-id"
+
+# Distribution settings
+distribution:
+  groups:
+    - "beta-testers"
+    - "internal-team"
+    - "external-reviewers"
+  
+  # Release notes configuration
+  release_notes:
+    format: "markdown"
+    file: "RELEASE_NOTES.md"
+  
+  # Testing configuration
+  testing:
+    automated_tests: true
+    manual_tests: true
+    
+  # Privacy settings (aligned with SubControl's privacy-first approach)
+  privacy:
+    crash_reporting: "opt-in"
+    analytics: false
+    user_tracking: false
+    
+  # Notification settings
+  notifications:
+    email: true
+    slack: false
+    
+# Build configuration
+build:
+  build_type: "debug"
+  flavor: "beta"
+  
+# Security settings
+security:
+  signing_key_env: "FIREBASE_SIGNING_KEY"
+  encryption: "AES-256-GCM"
+  
+# Upload configuration
+upload:
+  artifact_type: "apk"
+  artifact_path: "app/build/outputs/apk/debug/app-debug.apk"
+  
+# Tester management
+testers:
+  max_count: 500
+  auto_invite: false
+  require_approval: true
+  
+# Feedback collection
+feedback:
+  in_app: true
+  email_collection: true
+  screenshot_collection: true
+  logs_collection: "opt-in"

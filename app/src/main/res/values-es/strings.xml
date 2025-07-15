@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SubControl</string>
+    
+    <!-- Navigation -->
+    <string name="nav_subscriptions">Suscripciones</string>
+    <string name="nav_budgets">Presupuestos</string>
+    <string name="nav_categories">Categorías</string>
+    <string name="nav_settings">Ajustes</string>
+    
+    <!-- General -->
+    <string name="add">Agregar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="done">Hecho</string>
+    <string name="loading">Cargando…</string>
+    <string name="error">Error</string>
+    <string name="retry">Reintentar</string>
+    
+    <!-- Subscription related -->
+    <string name="subscription_name">Nombre de suscripción</string>
+    <string name="subscription_cost">Costo</string>
+    <string name="subscription_currency">Moneda</string>
+    <string name="subscription_billing_period">Período de facturación</string>
+    <string name="subscription_next_billing">Próxima facturación</string>
+    <string name="subscription_status">Estado</string>
+    
+    <!-- Billing periods -->
+    <string name="billing_period_daily">Diario</string>
+    <string name="billing_period_weekly">Semanal</string>
+    <string name="billing_period_monthly">Mensual</string>
+    <string name="billing_period_quarterly">Trimestral</string>
+    <string name="billing_period_semi_annually">Semestral</string>
+    <string name="billing_period_annually">Anual</string>
+    
+    <!-- Subscription status -->
+    <string name="status_active">Activo</string>
+    <string name="status_trial">Prueba</string>
+    <string name="status_paused">Pausado</string>
+    <string name="status_cancelled">Cancelado</string>
+    <string name="status_expired">Expirado</string>
+    
+    <!-- Content descriptions for accessibility -->
+    <string name="cd_add_subscription">Agregar nueva suscripción</string>
+    <string name="cd_edit_subscription">Editar suscripción</string>
+    <string name="cd_delete_subscription">Eliminar suscripción</string>
+    <string name="cd_subscription_status">Estado de suscripción</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard">Panel</string>
+    <string name="cost_summary">Resumen de costos</string>
+    <string name="monthly_total">Total mensual</string>
+    <string name="yearly_total">Total anual</string>
+    <string name="upcoming_renewals">Próximas renovaciones</string>
+    <string name="no_upcoming_renewals">No hay renovaciones en los próximos 7 días</string>
+    <string name="active_subscriptions">Activas</string>
+    <string name="trial_subscriptions">Pruebas</string>
+    <string name="spending_by_category">Gastos por categoría</string>
+    <string name="loading_dashboard">Cargando panel…</string>
+    <string name="refresh">Actualizar</string>
+    
+    <!-- Notification content -->
+    <string name="renewal_notification_title">Recordatorio de renovación de suscripción</string>
+    <string name="renewal_notification_text">Tu suscripción %1$s está a punto de renovarse</string>
+    <string name="trial_ending_notification_title">Período de prueba terminando</string>
+    <string name="trial_ending_notification_text">Tu período de prueba %1$s está terminando</string>
+    
+    <!-- Notification channels -->
+    <string name="renewal_notification_channel_name">Recordatorios de renovación</string>
+    <string name="renewal_notification_channel_description">Notificaciones para próximas renovaciones de suscripción</string>
+    <string name="trial_notification_channel_name">Recordatorios de prueba</string>
+    <string name="trial_notification_channel_description">Notificaciones para períodos de prueba que terminan</string>
+    
+    <!-- Permissions and notifications -->
+    <string name="notification_permission_title">Habilitar notificaciones</string>
+    <string name="notification_permission_message">SubControl necesita permiso de notificaciones para recordarte los pagos de suscripciones.</string>
+    <string name="notification_permission_allow">Permitir</string>
+    <string name="notification_permission_deny">Ahora no</string>
+    
+    <!-- Backup & Restore -->
+    <string name="backup_restore_title">Copia de seguridad y restauración</string>
+    <string name="backup_restore_description">Exporta e importa tus datos de suscripciones</string>
+    <string name="create_backup">Crear copia de seguridad</string>
+    <string name="create_backup_description">Crea una copia de seguridad encriptada de todos tus datos de suscripciones. El archivo se guardará en la ubicación elegida.</string>
+    <string name="creating_backup">Creando copia de seguridad…</string>
+    <string name="backup_success">Copia de seguridad creada exitosamente: %1$s\n%2$d suscripciones respaldadas</string>
+    <string name="backup_failed">Copia de seguridad falló: %1$s</string>
+    
+    <string name="restore_backup">Restaurar copia de seguridad</string>
+    <string name="restore_backup_description">Selecciona un archivo de copia de seguridad para restaurar tus datos de suscripciones. El archivo debe estar encriptado con esta app.</string>
+    <string name="select_backup_file">Seleccionar archivo de copia de seguridad</string>
+    <string name="replace_existing_subscriptions">Reemplazar suscripciones existentes</string>
+    <string name="restoring">Restaurando…</string>
+    <string name="restore_success">¡Restauración completada exitosamente!\n%1$d suscripciones restauradas</string>
+    <string name="restore_failed">Restauración falló: %1$s</string>
+    
+    <!-- Backup validation -->
+    <string name="valid_backup_file">Archivo de copia de seguridad válido con %1$d suscripciones</string>
+    <string name="invalid_backup_file">Archivo de copia de seguridad inválido: %1$s</string>
+    <string name="invalid_file_format">Formato de archivo inválido. Se esperaba archivo .scb</string>
+    <string name="cannot_read_backup">No se puede leer el archivo de copia de seguridad</string>
+    <string name="security_error_backup">Error de seguridad: no se puede acceder al archivo de copia de seguridad</string>
+    <string name="io_error_backup">Error de E/S: no se pudo leer el archivo de copia de seguridad</string>
+    <string name="decryption_failed">Desencriptación falló: archivo de copia de seguridad inválido o datos corruptos</string>
+    
+    <!-- File information -->
+    <string name="file_information">Información del archivo</string>
+    <string name="file_name">Nombre: %1$s</string>
+    <string name="file_size">Tamaño: %1$s</string>
+    <string name="file_modified">Modificado: %1$s</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Ajustes</string>
+    <string name="more_settings_placeholder">Más ajustes serán agregados en futuras actualizaciones</string>
+    
+    <!-- Content descriptions for backup -->
+    <string name="cd_backup_icon">Icono de copia de seguridad</string>
+    <string name="cd_restore_icon">Icono de restauración</string>
+    <string name="cd_info_icon">Icono de información</string>
+    <string name="cd_success_icon">Icono de éxito</string>
+    <string name="cd_error_icon">Icono de error</string>
+    <string name="cd_chevron_right">Ir a copia de seguridad</string>
+</resources>

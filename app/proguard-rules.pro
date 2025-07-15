@@ -38,3 +38,28 @@
 
 # Keep Compose related classes
 -keep class androidx.compose.** { *; }
+
+# Performance optimizations
+-keep class androidx.profileinstaller.** { *; }
+
+# Optimize for app startup
+-optimizationpasses 5
+-dontpreverify
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+
+# Keep enum classes
+-keepclassmembers enum * { *; }
+
+# Keep Serialization classes
+-keep class kotlinx.serialization.** { *; }
+-keep class * extends kotlinx.serialization.KSerializer
+-keepclassmembers @kotlinx.serialization.Serializable class ** {
+    *** Companion;
+    *** INSTANCE;
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+# Reduce APK size by removing unused resources
+-keep class **.R$* { *; }

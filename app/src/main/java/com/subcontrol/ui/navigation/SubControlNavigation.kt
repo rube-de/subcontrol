@@ -9,6 +9,7 @@ import com.subcontrol.ui.screens.budget.BudgetEditScreen
 import com.subcontrol.ui.screens.budget.BudgetScreen
 import com.subcontrol.ui.screens.category.CategoryEditScreen
 import com.subcontrol.ui.screens.category.CategoryScreen
+import com.subcontrol.ui.screens.backup.BackupScreen
 import com.subcontrol.ui.screens.settings.SettingsScreen
 import com.subcontrol.ui.screens.subscription.SubscriptionEditScreen
 import com.subcontrol.ui.screens.subscription.SubscriptionListScreen
@@ -63,7 +64,15 @@ fun SubControlNavigation(
         }
         
         composable(Screen.Settings.route) {
-            SettingsScreen()
+            SettingsScreen(
+                onNavigateToBackup = {
+                    navController.navigate(Screen.Backup.route)
+                }
+            )
+        }
+        
+        composable(Screen.Backup.route) {
+            BackupScreen()
         }
         
         composable(Screen.AddSubscription.route) {
