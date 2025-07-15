@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme colors -->
+    <color name="seed">#6750A4</color>
+    
+    <!-- Primary colors -->
+    <color name="primary_light">#6750A4</color>
+    <color name="on_primary_light">#FFFFFF</color>
+    <color name="primary_container_light">#E9DDFF</color>
+    <color name="on_primary_container_light">#21005D</color>
+    
+    <!-- Secondary colors -->
+    <color name="secondary_light">#625B71</color>
+    <color name="on_secondary_light">#FFFFFF</color>
+    <color name="secondary_container_light">#E8DEF8</color>
+    <color name="on_secondary_container_light">#1D192B</color>
+    
+    <!-- Tertiary colors -->
+    <color name="tertiary_light">#7D5260</color>
+    <color name="on_tertiary_light">#FFFFFF</color>
+    <color name="tertiary_container_light">#FFD8E4</color>
+    <color name="on_tertiary_container_light">#31111D</color>
+    
+    <!-- Error colors -->
+    <color name="error_light">#BA1A1A</color>
+    <color name="on_error_light">#FFFFFF</color>
+    <color name="error_container_light">#FFDAD6</color>
+    <color name="on_error_container_light">#410002</color>
+    
+    <!-- Surface colors -->
+    <color name="surface_light">#FEF7FF</color>
+    <color name="on_surface_light">#1D1B20</color>
+    <color name="surface_variant_light">#E7E0EC</color>
+    <color name="on_surface_variant_light">#49454F</color>
+    <color name="outline_light">#79747E</color>
+    <color name="outline_variant_light">#CAC4D0</color>
+    
+    <!-- Background colors -->
+    <color name="background_light">#FEF7FF</color>
+    <color name="on_background_light">#1D1B20</color>
+    
+    <!-- Surface tint and inverse colors -->
+    <color name="surface_tint_light">#6750A4</color>
+    <color name="inverse_surface_light">#322F35</color>
+    <color name="inverse_on_surface_light">#F5EFF7</color>
+    <color name="inverse_primary_light">#D0BCFF</color>
+    
+    <!-- Dark theme colors -->
+    <color name="primary_dark">#D0BCFF</color>
+    <color name="on_primary_dark">#381E72</color>
+    <color name="primary_container_dark">#4F378B</color>
+    <color name="on_primary_container_dark">#E9DDFF</color>
+    
+    <!-- Secondary colors dark -->
+    <color name="secondary_dark">#CCC2DC</color>
+    <color name="on_secondary_dark">#332D41</color>
+    <color name="secondary_container_dark">#4A4458</color>
+    <color name="on_secondary_container_dark">#E8DEF8</color>
+    
+    <!-- Tertiary colors dark -->
+    <color name="tertiary_dark">#EFB8C8</color>
+    <color name="on_tertiary_dark">#492532</color>
+    <color name="tertiary_container_dark">#633B48</color>
+    <color name="on_tertiary_container_dark">#FFD8E4</color>
+    
+    <!-- Error colors dark -->
+    <color name="error_dark">#FFB4AB</color>
+    <color name="on_error_dark">#690005</color>
+    <color name="error_container_dark">#93000A</color>
+    <color name="on_error_container_dark">#FFDAD6</color>
+    
+    <!-- Surface colors dark -->
+    <color name="surface_dark">#141218</color>
+    <color name="on_surface_dark">#E6E0E9</color>
+    <color name="surface_variant_dark">#49454F</color>
+    <color name="on_surface_variant_dark">#CAC4D0</color>
+    <color name="outline_dark">#938F99</color>
+    <color name="outline_variant_dark">#49454F</color>
+    
+    <!-- Background colors dark -->
+    <color name="background_dark">#141218</color>
+    <color name="on_background_dark">#E6E0E9</color>
+    
+    <!-- Surface tint and inverse colors dark -->
+    <color name="surface_tint_dark">#D0BCFF</color>
+    <color name="inverse_surface_dark">#E6E0E9</color>
+    <color name="inverse_on_surface_dark">#322F35</color>
+    <color name="inverse_primary_dark">#6750A4</color>
+    
+    <!-- Custom app colors -->
+    <color name="success_light">#1B6F3C</color>
+    <color name="success_dark">#81C995</color>
+    <color name="warning_light">#F57C00</color>
+    <color name="warning_dark">#FFB74D</color>
+</resources>

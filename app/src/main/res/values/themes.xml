@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light theme -->
+    <style name="Theme.SubControl" parent="android:Theme.Material.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="android:colorPrimary">@color/primary_light</item>
+        <item name="android:colorOnPrimary">@color/on_primary_light</item>
+        <item name="android:colorPrimaryContainer">@color/primary_container_light</item>
+        <item name="android:colorOnPrimaryContainer">@color/on_primary_container_light</item>
+        
+        <!-- Secondary colors -->
+        <item name="android:colorSecondary">@color/secondary_light</item>
+        <item name="android:colorOnSecondary">@color/on_secondary_light</item>
+        <item name="android:colorSecondaryContainer">@color/secondary_container_light</item>
+        <item name="android:colorOnSecondaryContainer">@color/on_secondary_container_light</item>
+        
+        <!-- Tertiary colors -->
+        <item name="android:colorTertiary">@color/tertiary_light</item>
+        <item name="android:colorOnTertiary">@color/on_tertiary_light</item>
+        <item name="android:colorTertiaryContainer">@color/tertiary_container_light</item>
+        <item name="android:colorOnTertiaryContainer">@color/on_tertiary_container_light</item>
+        
+        <!-- Error colors -->
+        <item name="android:colorError">@color/error_light</item>
+        <item name="android:colorOnError">@color/on_error_light</item>
+        <item name="android:colorErrorContainer">@color/error_container_light</item>
+        <item name="android:colorOnErrorContainer">@color/on_error_container_light</item>
+        
+        <!-- Surface colors -->
+        <item name="android:colorSurface">@color/surface_light</item>
+        <item name="android:colorOnSurface">@color/on_surface_light</item>
+        <item name="android:colorSurfaceVariant">@color/surface_variant_light</item>
+        <item name="android:colorOnSurfaceVariant">@color/on_surface_variant_light</item>
+        <item name="android:colorOutline">@color/outline_light</item>
+        <item name="android:colorOutlineVariant">@color/outline_variant_light</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/background_light</item>
+        <item name="android:colorOnBackground">@color/on_background_light</item>
+        
+        <!-- Surface tint and inverse colors -->
+        <item name="android:colorSurfaceTint">@color/surface_tint_light</item>
+        <item name="android:colorSurfaceInverse">@color/inverse_surface_light</item>
+        <item name="android:colorOnSurfaceInverse">@color/inverse_on_surface_light</item>
+        <item name="android:colorPrimaryInverse">@color/inverse_primary_light</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

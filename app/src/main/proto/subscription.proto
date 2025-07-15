@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+option java_package = "com.subcontrol.data.model.proto";
+option java_multiple_files = true;
+
+package subcontrol;
+
+// Main subscription data model
+message Subscription {
+  // Unique identifier for the subscription
+  string id = 1;
+  
+  // Basic subscription information
+  string name = 2;
+  string description = 3;
+  
+  // Cost information
+  double cost = 4;
+  string currency = 5; // ISO 4217 currency code (e.g., "USD", "EUR")
+  
+  // Billing information
+  BillingPeriod billing_period = 6;
+  int32 billing_cycle = 7; // Number of periods (e.g., 3 for "every 3 months")
+  
+  // Dates (stored as Unix timestamps)
+  int64 start_date = 8;
+  int64 next_billing_date = 9;
+  int64 trial_end_date = 10; // 0 if no trial
+  
+  // Status and settings
+  SubscriptionStatus status = 11;
+  bool notifications_enabled = 12;
+  int32 notification_days_before = 13; // Days before billing to notify
+  
+  // Organization
+  string category = 14;
+  repeated string tags = 15;
+  
+  // Additional information
+  string notes = 16;
+  string website_url = 17;
+  string support_email = 18;
+  
+  // Metadata
+  int64 created_at = 19;
+  int64 updated_at = 20;
+}
+
+// Billing period enumeration
+enum BillingPeriod {
+  BILLING_PERIOD_UNSPECIFIED = 0;
+  DAILY = 1;
+  WEEKLY = 2;
+  MONTHLY = 3;
+  QUARTERLY = 4;
+  SEMI_ANNUALLY = 5;
+  ANNUALLY = 6;
+  CUSTOM = 7; // Use with billing_cycle for custom periods
+}
+
+// Subscription status enumeration
+enum SubscriptionStatus {
+  SUBSCRIPTION_STATUS_UNSPECIFIED = 0;
+  ACTIVE = 1;
+  TRIAL = 2;
+  PAUSED = 3;
+  CANCELLED = 4;
+  EXPIRED = 5;
+}
+
+// Collection of all subscriptions
+message SubscriptionList {
+  repeated Subscription subscriptions = 1;
+  int64 last_updated = 2;
+  int32 version = 3; // Schema version for migration purposes
+}
+
+// User preferences and settings
+message UserPreferences {
+  // Display preferences
+  string default_currency = 1;
+  bool show_trial_subscriptions = 2;
+  bool show_cancelled_subscriptions = 3;
+  
+  // Notification preferences
+  bool global_notifications_enabled = 4;
+  int32 default_notification_days = 5;
+  bool notification_sound_enabled = 6;
+  bool notification_vibration_enabled = 7;
+  
+  // Privacy and security
+  bool require_authentication = 8;
+  bool auto_lock_enabled = 9;
+  int32 auto_lock_timeout_minutes = 10;
+  
+  // Backup and sync
+  bool backup_enabled = 11;
+  string backup_frequency = 12; // "daily", "weekly", "monthly"
+  
+  // Appearance
+  string theme_mode = 13; // "light", "dark", "system"
+  
+  // Analytics (all disabled for privacy)
+  bool analytics_enabled = 14; // Always false
+  bool crash_reporting_enabled = 15; // Always false
+  
+  // Metadata
+  int64 created_at = 16;
+  int64 updated_at = 17;
+}
+
+// Categories for organizing subscriptions
+message Category {
+  string id = 1;
+  string name = 2;
+  string color = 3; // Hex color code
+  string icon = 4; // Material Design icon name
+  int32 sort_order = 5;
+  int64 created_at = 6;
+  int64 updated_at = 7;
+}
+
+message CategoryList {
+  repeated Category categories = 1;
+  int64 last_updated = 2;
+}
+
+// Budget tracking and limits
+message Budget {
+  string id = 1;
+  string name = 2;
+  double monthly_limit = 3;
+  string currency = 4;
+  repeated string included_categories = 5; // Category IDs
+  repeated string included_subscriptions = 6; // Subscription IDs
+  bool notifications_enabled = 7;
+  double notification_threshold = 8; // Percentage (0.0 to 1.0)
+  int64 created_at = 9;
+  int64 updated_at = 10;
+}
+
+message BudgetList {
+  repeated Budget budgets = 1;
+  int64 last_updated = 2;
+}
+
+// Application-wide data store
+message AppData {
+  SubscriptionList subscription_list = 1;
+  UserPreferences user_preferences = 2;
+  CategoryList category_list = 3;
+  BudgetList budget_list = 4;
+  int32 schema_version = 5; // For data migration
+  int64 last_backup_timestamp = 6;
+}
