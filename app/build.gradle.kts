@@ -34,21 +34,11 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            
-            // Performance optimizations
-            renderscriptTargetApi = 34
-            renderscriptSupportModeEnabled = false
-            
-            // Baseline profiles for improved startup performance
-            isMinifyEnabled = true
-            isShrinkResources = true
         }
         debug {
             isDebuggable = true
             applicationIdSuffix = ".debug"
-            
-            // Enable baseline profile generation for debugging
-            testCoverageEnabled = true
+            enableUnitTestCoverage = true
         }
     }
 

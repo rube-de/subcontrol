@@ -1,0 +1,165 @@
+name: Release APK for Obtainium
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Build and Release APK
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+          
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+            
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+        
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          
+      - name: Update version in gradle
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          # Extract version components
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          # Calculate version code as MAJOR*10000 + MINOR*100 + PATCH
+          VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
+          
+          # Update build.gradle.kts
+          sed -i "s/versionCode = [0-9]*/versionCode = $VERSION_CODE/" app/build.gradle.kts
+          sed -i "s/versionName = \"[^\"]*\"/versionName = \"$VERSION\"/" app/build.gradle.kts
+          
+          echo "Updated version to $VERSION (code: $VERSION_CODE)"
+          
+      - name: Build release APK
+        run: ./gradlew assembleRelease
+        
+      - name: Sign APK
+        id: sign_apk
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+          
+      - name: Rename APK
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          mv app/build/outputs/apk/release/app-release-unsigned-signed.apk "SubControl-v$VERSION.apk"
+          
+      - name: Verify APK signature
+        run: |
+          APK_PATH="SubControl-v${{ steps.version.outputs.VERSION }}.apk"
+          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging "$APK_PATH"
+          jarsigner -verify -verbose -certs "$APK_PATH"
+          
+      - name: Generate changelog and release notes
+        id: release_notes
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          
+          # Make changelog script executable
+          chmod +x scripts/generate-changelog.sh
+          
+          # Generate changelog for this version
+          echo "Generating changelog for version $VERSION..."
+          ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_entry.txt
+          
+          # Try to extract release notes from RELEASE_NOTES.md first
+          RELEASE_NOTES=""
+          if [ -f "RELEASE_NOTES.md" ]; then
+            # Find the section for this version
+            RELEASE_NOTES=$(awk "/^## \[?v?$VERSION\]?/,/^## \[?v?[0-9]/" RELEASE_NOTES.md | head -n -1 | tail -n +2)
+            
+            # If no specific version found, use the first section
+            if [ -z "$RELEASE_NOTES" ]; then
+              RELEASE_NOTES=$(awk '/^## /,/^## /' RELEASE_NOTES.md | head -n -1 | tail -n +2)
+            fi
+          fi
+          
+          # If no release notes found, use generated changelog
+          if [ -z "$RELEASE_NOTES" ]; then
+            if [ -s changelog_entry.txt ]; then
+              RELEASE_NOTES=$(cat changelog_entry.txt)
+            else
+              RELEASE_NOTES="Release version $VERSION of SubControl - Privacy-focused Android Subscription Manager"
+            fi
+          fi
+          
+          # Save to file to handle multiline content
+          echo "$RELEASE_NOTES" > release_notes.txt
+          
+          # Update CHANGELOG.md if it exists, or create it
+          if [ -f "CHANGELOG.md" ]; then
+            echo "Updating CHANGELOG.md..."
+            ./scripts/generate-changelog.sh --update CHANGELOG.md "$VERSION"
+          else
+            echo "Creating CHANGELOG.md..."
+            ./scripts/generate-changelog.sh --full CHANGELOG.md
+          fi
+          
+      - name: Commit updated changelog
+        run: |
+          VERSION=${{ steps.version.outputs.VERSION }}
+          
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Add and commit changelog if it was modified
+          if [ -f "CHANGELOG.md" ]; then
+            git add CHANGELOG.md
+            if ! git diff --cached --quiet; then
+              git commit -m "Update CHANGELOG.md for version $VERSION"
+              git push origin $(git branch --show-current)
+            else
+              echo "No changes to CHANGELOG.md"
+            fi
+          fi
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.TAG_NAME }}
+          name: SubControl ${{ steps.version.outputs.VERSION }}
+          body_path: release_notes.txt
+          files: |
+            SubControl-v${{ steps.version.outputs.VERSION }}.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SubControl-v${{ steps.version.outputs.VERSION }}-signed
+          path: SubControl-v${{ steps.version.outputs.VERSION }}.apk

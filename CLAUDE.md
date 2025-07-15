@@ -40,6 +40,11 @@ SubControl is a privacy-focused Android subscription manager app. The app helps 
 
 # Format Code
 ./gradlew ktlintFormat           # Auto-format Kotlin code
+
+# Release Management & Obtainium
+./scripts/create-release.sh 1.0.1              # Create new release with changelog
+./scripts/generate-changelog.sh --full CHANGELOG.md  # Generate full changelog
+./scripts/validate-release.sh SubControl-v1.0.1.apk  # Validate APK for Obtainium
 ```
 
 ## Project Structure ✅ Complete
@@ -350,12 +355,49 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 - **Accessibility**: WCAG 2.1 AA compliant across all languages
 - **CI/CD**: Automated testing and deployment pipeline
 - **Beta Testing**: Firebase App Distribution integration ready
+- **Obtainium Support**: GitHub releases with signed APKs for automatic updates
 
 **Next Steps for Live Deployment:**
-1. **Play Store Setup**: Configure Google Play Console account
-2. **Beta Testing**: Deploy to Firebase App Distribution
-3. **Final QA**: Comprehensive testing across all supported languages
-4. **Production Release**: Deploy to Google Play Store
+1. **Configure GitHub Secrets**: Set up Android signing credentials for automated releases
+2. **Test Release Process**: Create first release using `./scripts/create-release.sh`
+3. **Beta Testing**: Deploy to Firebase App Distribution
+4. **Final QA**: Comprehensive testing across all supported languages
+5. **Production Release**: Deploy to Google Play Store and verify Obtainium compatibility
+
+## 📦 Release Management & Obtainium Support
+
+SubControl now includes comprehensive release management automation with full Obtainium compatibility:
+
+### 🔄 Automated Release Process
+- **GitHub Actions Workflow**: Automatically creates releases when version tags are pushed
+- **APK Signing**: Secure signing using GitHub Secrets (keystore stored as base64)
+- **Changelog Generation**: Automatic changelog generation from git commits
+- **Release Notes**: Intelligent extraction from RELEASE_NOTES.md or generated changelog
+- **Obtainium Compatible**: Proper APK naming and GitHub releases API integration
+
+### 🛠️ Release Scripts
+- **`scripts/create-release.sh`**: Interactive release creation with version validation
+- **`scripts/generate-changelog.sh`**: Standalone changelog generation from commits
+- **`scripts/validate-release.sh`**: APK validation for Obtainium compatibility
+
+### 📋 Changelog Features
+- **Conventional Commits**: Supports feat, fix, chore, breaking, etc.
+- **Keyword Detection**: Fallback categorization for non-conventional commits
+- **Keep a Changelog Format**: Professional changelog format with semantic versioning
+- **Automatic Categorization**: Added, Changed, Fixed, Removed, Security, Breaking Changes
+
+### 🔐 Security & Signing
+- **GitHub Secrets**: Secure credential storage (SIGNING_KEY, ALIAS, KEY_STORE_PASSWORD, KEY_PASSWORD)
+- **Android Keystore**: Hardware-backed signing for production releases
+- **APK Validation**: Comprehensive validation including signature verification
+- **OWASP Compliance**: Security validation against OWASP Mobile Top 10 2024
+
+### 🎯 Obtainium Integration
+Users can install SubControl via Obtainium using: `https://github.com/rube-de/subcontrol`
+- **Automatic Updates**: Obtainium detects new releases automatically
+- **Standard GitHub API**: Uses standard GitHub releases for maximum compatibility
+- **Signed APKs**: Properly signed APKs for secure installation
+- **Semantic Versioning**: Proper version ordering for update detection
 
 ## 🔧 Development Guidelines for Current State
 

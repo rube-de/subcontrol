@@ -118,15 +118,33 @@ SubControl maintains 100% test coverage for business logic with comprehensive te
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 📱 For Users - Install via Obtainium
+
+SubControl is available through GitHub releases and is fully compatible with [Obtainium](https://obtainium.imranr.dev/) for automatic updates:
+
+1. **Install Obtainium** from F-Droid or GitHub releases
+2. **Add SubControl** to Obtainium using this repository URL:
+   ```
+   https://github.com/rube-de/subcontrol
+   ```
+3. **Obtainium will automatically detect and install the latest release**
+4. **Enable automatic updates** to receive new versions automatically
+
+### 📦 Direct APK Download
+
+You can also download the latest APK directly from our [GitHub releases page](https://github.com/rube-de/subcontrol/releases).
+
+### 👩‍💻 For Developers
+
+#### Prerequisites
 - Android Studio Hedgehog | 2023.1.1 or later
 - Android SDK 35 (Android 15)
 - Java 17 or later
 
-### Setup
+#### Setup
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-org/subcontrol.git
+   git clone https://github.com/rube-de/subcontrol.git
    cd subcontrol
    ```
 
@@ -155,10 +173,16 @@ SubControl maintains 100% test coverage for business logic with comprehensive te
 - **Detekt**: Static analysis
 - **Android Lint**: Android-specific checks
 - **GitHub Actions**: Automated testing and deployment
+- **Changelog Generation**: Automatic changelog from git commits
 
 ```bash
 # Local quality checks
 ./gradlew ktlintCheck detekt lint
+
+# Release management
+./scripts/create-release.sh 1.0.1              # Create new release
+./scripts/generate-changelog.sh --full CHANGELOG.md  # Generate full changelog
+./scripts/validate-release.sh SubControl-v1.0.1.apk  # Validate APK
 
 # Full CI/CD pipeline runs automatically on push to main/develop
 # Manual testing
@@ -195,8 +219,9 @@ SubControl is **production-ready** and ready for deployment:
 - **Feedback Collection**: In-app feedback with screenshot support
 
 ### Production Deployment
+- **GitHub Releases**: Automated APK releases compatible with Obtainium
 - **Release Bundle**: Optimized AAB with R8 code shrinking
-- **Security**: OWASP Mobile Top 10 2024 compliant
+- **Security**: OWASP Mobile Top 10 2024 compliant with signed APKs
 - **Performance**: 30% faster startup with baseline profiles
 - **Accessibility**: WCAG 2.1 AA compliant across all languages
 
@@ -204,6 +229,9 @@ SubControl is **production-ready** and ready for deployment:
 - **Automated Testing**: Unit tests, security scans, performance tests
 - **Build Optimization**: Gradle caching for 40-60% faster builds
 - **Quality Gates**: Comprehensive validation before deployment
+- **Release Automation**: Automatic GitHub releases on version tags
+- **APK Signing**: Secure APK signing with GitHub Secrets
+- **Changelog Generation**: Automatic changelog generation from git commits
 
 ---
 
