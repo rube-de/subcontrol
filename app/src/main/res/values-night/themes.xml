@@ -1,48 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Dark theme -->
-    <style name="Theme.SubControl" parent="android:Theme.Material.DayNight.NoActionBar">
+    <style name="Theme.SubControl" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary colors -->
-        <item name="android:colorPrimary">@color/primary_dark</item>
-        <item name="android:colorOnPrimary">@color/on_primary_dark</item>
-        <item name="android:colorPrimaryContainer">@color/primary_container_dark</item>
-        <item name="android:colorOnPrimaryContainer">@color/on_primary_container_dark</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary_dark</item>
+        <item name="colorPrimaryContainer">@color/primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/on_primary_container_dark</item>
         
         <!-- Secondary colors -->
-        <item name="android:colorSecondary">@color/secondary_dark</item>
-        <item name="android:colorOnSecondary">@color/on_secondary_dark</item>
-        <item name="android:colorSecondaryContainer">@color/secondary_container_dark</item>
-        <item name="android:colorOnSecondaryContainer">@color/on_secondary_container_dark</item>
+        <item name="colorSecondary">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/on_secondary_dark</item>
+        <item name="colorSecondaryContainer">@color/secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/on_secondary_container_dark</item>
         
         <!-- Tertiary colors -->
-        <item name="android:colorTertiary">@color/tertiary_dark</item>
-        <item name="android:colorOnTertiary">@color/on_tertiary_dark</item>
-        <item name="android:colorTertiaryContainer">@color/tertiary_container_dark</item>
-        <item name="android:colorOnTertiaryContainer">@color/on_tertiary_container_dark</item>
+        <item name="colorTertiary">@color/tertiary_dark</item>
+        <item name="colorOnTertiary">@color/on_tertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/on_tertiary_container_dark</item>
         
         <!-- Error colors -->
-        <item name="android:colorError">@color/error_dark</item>
-        <item name="android:colorOnError">@color/on_error_dark</item>
-        <item name="android:colorErrorContainer">@color/error_container_dark</item>
-        <item name="android:colorOnErrorContainer">@color/on_error_container_dark</item>
+        <item name="colorError">@color/error_dark</item>
+        <item name="colorOnError">@color/on_error_dark</item>
+        <item name="colorErrorContainer">@color/error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/on_error_container_dark</item>
         
         <!-- Surface colors -->
-        <item name="android:colorSurface">@color/surface_dark</item>
-        <item name="android:colorOnSurface">@color/on_surface_dark</item>
-        <item name="android:colorSurfaceVariant">@color/surface_variant_dark</item>
-        <item name="android:colorOnSurfaceVariant">@color/on_surface_variant_dark</item>
-        <item name="android:colorOutline">@color/outline_dark</item>
-        <item name="android:colorOutlineVariant">@color/outline_variant_dark</item>
+        <item name="colorSurface">@color/surface_dark</item>
+        <item name="colorOnSurface">@color/on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant_dark</item>
+        <item name="colorOutline">@color/outline_dark</item>
+        <item name="colorOutlineVariant">@color/outline_variant_dark</item>
         
-        <!-- Background colors -->
+        <!-- Use system background colors -->
         <item name="android:colorBackground">@color/background_dark</item>
-        <item name="android:colorOnBackground">@color/on_background_dark</item>
-        
-        <!-- Surface tint and inverse colors -->
-        <item name="android:colorSurfaceTint">@color/surface_tint_dark</item>
-        <item name="android:colorSurfaceInverse">@color/inverse_surface_dark</item>
-        <item name="android:colorOnSurfaceInverse">@color/inverse_on_surface_dark</item>
-        <item name="android:colorPrimaryInverse">@color/inverse_primary_dark</item>
         
         <!-- Status bar -->
         <item name="android:statusBarColor">@android:color/transparent</item>

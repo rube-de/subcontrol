@@ -1,6 +1,6 @@
 [versions]
 # Build tools
-agp = "8.5.0"
+agp = "8.7.0"
 kotlin = "2.0.0"
 ksp = "2.0.0-1.0.22"
 
@@ -28,6 +28,9 @@ coroutines = "1.8.1"
 
 # Security
 security-crypto = "1.1.0-alpha06"
+
+# Material Design
+material = "1.12.0"
 
 # Testing
 junit = "4.13.2"
@@ -71,6 +74,9 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 
 # Security
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "security-crypto" }
+
+# Material Design
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

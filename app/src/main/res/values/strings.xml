@@ -48,6 +48,31 @@
     <string name="cd_delete_subscription">Delete subscription</string>
     <string name="cd_subscription_status">Subscription status</string>
     
+    <!-- Dashboard -->
+    <string name="dashboard">Dashboard</string>
+    <string name="cost_summary">Cost Summary</string>
+    <string name="monthly_total">Monthly Total</string>
+    <string name="yearly_total">Yearly Total</string>
+    <string name="upcoming_renewals">Upcoming Renewals</string>
+    <string name="no_upcoming_renewals">No renewals in the next 7 days</string>
+    <string name="active_subscriptions">Active</string>
+    <string name="trial_subscriptions">Trials</string>
+    <string name="spending_by_category">Spending by Category</string>
+    <string name="loading_dashboard">Loading dashboard…</string>
+    <string name="refresh">Refresh</string>
+    
+    <!-- Notification content -->
+    <string name="renewal_notification_title">Subscription Renewal Reminder</string>
+    <string name="renewal_notification_text">Your %1$s subscription is about to renew</string>
+    <string name="trial_ending_notification_title">Trial Ending Soon</string>
+    <string name="trial_ending_notification_text">Your %1$s trial is ending soon</string>
+    
+    <!-- Notification channels -->
+    <string name="renewal_notification_channel_name">Renewal Reminders</string>
+    <string name="renewal_notification_channel_description">Notifications for upcoming subscription renewals</string>
+    <string name="trial_notification_channel_name">Trial Reminders</string>
+    <string name="trial_notification_channel_description">Notifications for ending trial periods</string>
+    
     <!-- Permissions and notifications -->
     <string name="notification_permission_title">Enable Notifications</string>
     <string name="notification_permission_message">SubControl needs notification permission to remind you about upcoming subscription payments.</string>

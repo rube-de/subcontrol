@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.subcontrol"
-        minSdk = 35
+        minSdk = 34
         targetSdk = 35
         versionCode = 1
         versionName = "1.0.0"
@@ -117,6 +117,9 @@ dependencies {
 
     // Security
     implementation(libs.androidx.security.crypto)
+
+    // Material Design
+    implementation(libs.material)
 
     // Testing - Unit
     testImplementation(libs.bundles.testing.unit)
