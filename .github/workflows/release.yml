@@ -20,6 +20,20 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
           
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        
+      - name: Install Android Build Tools
+        run: |
+          # Install build-tools that include zipalign and aapt
+          sdkmanager "build-tools;34.0.0"
+          
+          # Verify zipalign exists
+          ls -la $ANDROID_HOME/build-tools/34.0.0/zipalign || echo "zipalign not found!"
+          
+          # Add build-tools to PATH
+          echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+          
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:

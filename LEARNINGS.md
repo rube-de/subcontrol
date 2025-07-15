@@ -218,3 +218,46 @@ fun `viewmodel updates UI state`() = runTest {
     }
 }
 ```
+
+## Android GitHub Actions Setup
+
+### Issue: zipalign not found
+**Date:** 2025-01-15
+**Error:** `Unable to locate executable file: /usr/local/lib/android/sdk/build-tools/29.0.3/zipalign`
+
+**Root Cause:** 
+The Android SDK and build-tools are not automatically installed in GitHub Actions runners. You need to explicitly set up the Android SDK and install the required build-tools version.
+
+**Solution:**
+1. Add `android-actions/setup-android@v3` action after Java setup
+2. Install specific build-tools version using sdkmanager
+3. Add build-tools to PATH for command access
+
+**Fixed Configuration:**
+```yaml
+- name: Setup Android SDK
+  uses: android-actions/setup-android@v3
+  
+- name: Install Android Build Tools
+  run: |
+    # Install build-tools that include zipalign and aapt
+    sdkmanager "build-tools;34.0.0"
+    
+    # Add build-tools to PATH
+    echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+```
+
+**Key Learnings:**
+- GitHub Actions runners are minimal Ubuntu environments without Android SDK pre-installed
+- Android SDK must be explicitly installed using `android-actions/setup-android@v3`
+- Build tools (zipalign, aapt, etc.) are located in version-specific directories
+- Always add build-tools to PATH for command access in subsequent steps
+- The `android-actions/setup-android@v3` action handles SDK installation and license acceptance automatically
+- Use consistent build-tools versions across all workflow steps
+
+### Additional GitHub Actions Best Practices
+- Use latest action versions (@v4 for most actions, @v3 for android-actions)
+- Cache Gradle dependencies for 40-60% faster builds
+- Java 17 is required for modern Android projects
+- Always make gradlew executable with `chmod +x`
+- The `r0adkll/sign-android-release@v1` action handles zipalign internally, but you still need build-tools for other commands like `aapt`

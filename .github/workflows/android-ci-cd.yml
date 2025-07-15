@@ -21,6 +21,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
           
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
@@ -82,6 +85,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
           
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
@@ -131,6 +137,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
           
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
@@ -172,6 +181,9 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
           
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
