@@ -17,6 +17,7 @@ navigation-compose = "2.7.7"
 # Dependency Injection
 hilt = "2.51.1"
 hilt-navigation-compose = "1.2.0"
+hilt-work = "1.2.0"
 
 # Data & Storage
 datastore = "1.1.1"
@@ -40,6 +41,9 @@ documentfile = "1.1.0"
 
 # Performance optimizations
 profileinstaller = "1.4.1"
+
+# WorkManager
+work-runtime = "2.9.1"
 
 # Testing
 junit = "4.13.2"
@@ -65,12 +69,14 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation-compose" }
 
 # Hilt
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hilt-work" }
 
 # DataStore & Protobuf
 androidx-datastore = { group = "androidx.datastore", name = "datastore", version.ref = "datastore" }
@@ -96,6 +102,9 @@ androidx-documentfile = { group = "androidx.documentfile", name = "documentfile"
 # Performance optimizations
 androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "profileinstaller" }
 
+# WorkManager
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work-runtime" }
+
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-ext" }
@@ -114,7 +123,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }
 
 [bundles]
-compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3"]
+compose = ["androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-material-icons-extended"]
 lifecycle = ["androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-compose"]
 coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
 testing-unit = ["junit", "mockk", "turbine", "kotlinx-coroutines-test"]

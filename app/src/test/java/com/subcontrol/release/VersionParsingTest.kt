@@ -299,7 +299,8 @@ class VersionParser {
      * @return The extracted version name
      */
     fun getVersionFromGradleFile(gradleContent: String): String {
-        val versionNameRegex = Regex("versionName\\s+\"([^\"]+)\"")
+        // Support both Groovy (versionName "1.2.3") and Kotlin DSL (versionName = "1.2.3") formats
+        val versionNameRegex = Regex("versionName\\s*=?\\s*\"([^\"]+)\"")
         val match = versionNameRegex.find(gradleContent)
             ?: throw IllegalArgumentException("versionName not found in gradle file")
         
@@ -313,7 +314,8 @@ class VersionParser {
      * @return The extracted version code
      */
     fun getVersionCodeFromGradleFile(gradleContent: String): Int {
-        val versionCodeRegex = Regex("versionCode\\s+(\\d+)")
+        // Support both Groovy (versionCode 123) and Kotlin DSL (versionCode = 123) formats
+        val versionCodeRegex = Regex("versionCode\\s*=?\\s*(\\d+)")
         val match = versionCodeRegex.find(gradleContent)
             ?: throw IllegalArgumentException("versionCode not found in gradle file")
         

@@ -284,7 +284,7 @@ private fun SubscriptionEditForm(
                 DatePickerField(
                     label = "Start Date",
                     selectedDate = uiState.startDate,
-                    onDateSelected = onStartDateChange
+                    onDateSelected = { date -> date?.let { onStartDateChange(it) } }
                 )
 
                 DatePickerField(

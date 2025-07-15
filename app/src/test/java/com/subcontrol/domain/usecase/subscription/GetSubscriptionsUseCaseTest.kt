@@ -15,9 +15,9 @@ import org.junit.Test
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-import kotlin.test.assertNull
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertThrows
 
 class GetSubscriptionsUseCaseTest {
     
@@ -114,7 +114,7 @@ class GetSubscriptionsUseCaseTest {
         val blankId = ""
         
         // When & Then
-        assertFailsWith<IllegalArgumentException> {
+        assertThrows(IllegalArgumentException::class.java) {
             useCase.getSubscriptionById(blankId)
         }
     }
@@ -140,7 +140,7 @@ class GetSubscriptionsUseCaseTest {
         val blankCategory = ""
         
         // When & Then
-        assertFailsWith<IllegalArgumentException> {
+        assertThrows(IllegalArgumentException::class.java) {
             useCase.getSubscriptionsByCategory(blankCategory)
         }
     }
@@ -166,7 +166,7 @@ class GetSubscriptionsUseCaseTest {
         val blankQuery = ""
         
         // When & Then
-        assertFailsWith<IllegalArgumentException> {
+        assertThrows(IllegalArgumentException::class.java) {
             useCase.searchSubscriptions(blankQuery)
         }
     }
@@ -198,7 +198,7 @@ class GetSubscriptionsUseCaseTest {
         val invalidDays = 0
         
         // When & Then
-        assertFailsWith<IllegalArgumentException> {
+        assertThrows(IllegalArgumentException::class.java) {
             useCase.getUpcomingRenewals(invalidDays)
         }
     }

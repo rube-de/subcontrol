@@ -109,6 +109,7 @@ dependencies {
     // Dependency Injection
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.work)
     kapt(libs.hilt.compiler)
 
     // Data & Storage
@@ -132,6 +133,9 @@ dependencies {
     
     // Performance optimizations
     implementation(libs.androidx.profileinstaller)
+    
+    // WorkManager
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Testing - Unit
     testImplementation(libs.bundles.testing.unit)

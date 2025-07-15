@@ -116,7 +116,7 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 ## 🔄 Project Awareness & Context
 
 - **Always read this `PLANNING.md`** at the start of a new conversation to understand the project's architecture, goals, and constraints
-- **Check `/docs/workspaces/task-plan-01-14-18-10-00.md`** for current implementation status and next priorities
+- **Check `/docs/workspaces/*`** for current implementation status and next priorities
 - **Foundation is complete** - all core infrastructure, data layer, UI foundation, and navigation are implemented
 - **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANNING.md`
 - **Follow the existing package structure** when adding new features or modules
@@ -206,6 +206,7 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 - **Document architectural decisions** in code when deviating from standard patterns
 - **Keep inline documentation concise** but helpful for future developers
 - **Update this `CLAUDE.md`** if new patterns or practices are established
+- **Always update `LEARNINGS.md`** when you solved a bug or error, to not run into them again in future
 
 ## 🧠 AI Behavior Rules
 

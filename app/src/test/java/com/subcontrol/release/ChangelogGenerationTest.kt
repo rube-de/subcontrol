@@ -170,11 +170,11 @@ class ChangelogGenerationTest {
     @Test
     fun `groupCommitsByCategory should group commits correctly`() {
         val commits = listOf(
-            GitCommit("abc123", "feat: add feature A"),
-            GitCommit("def456", "feat: add feature B"),
-            GitCommit("ghi789", "fix: fix bug A"),
-            GitCommit("jkl012", "fix: fix bug B"),
-            GitCommit("mno345", "chore: update deps")
+            GitCommit("abc1234", "feat: add feature A"),
+            GitCommit("def4567", "feat: add feature B"),
+            GitCommit("ghi7890", "fix: fix bug A"),
+            GitCommit("jkl0123", "fix: fix bug B"),
+            GitCommit("mno3456", "chore: update deps")
         )
         
         val grouped = changelogGenerator.groupCommitsByCategory(commits)
@@ -193,12 +193,11 @@ class ChangelogGenerationTest {
         
         val formatted = changelogGenerator.formatChangelogSection("Added", entries)
         
-        val expected = """
-            ### Added
-            - add new feature (abc123d)
-            - add another feature (def456g)
-            
-        """.trimIndent()
+        val expected = """### Added
+- add new feature (abc123d)
+- add another feature (def456g)
+
+"""
         
         assertEquals(expected, formatted)
     }
@@ -223,12 +222,12 @@ class ChangelogGenerationTest {
         // Mock git commits data
         val mockCommits = mapOf(
             "v1.0.0" to listOf(
-                GitCommit("abc123", "feat: initial release"),
-                GitCommit("def456", "feat: add subscription management")
+                GitCommit("abc1234567", "feat: initial release"),
+                GitCommit("def4567890", "feat: add subscription management")
             ),
             "v1.1.0" to listOf(
-                GitCommit("ghi789", "feat: add notification system"),
-                GitCommit("jkl012", "fix: resolve memory leak")
+                GitCommit("ghi7890123", "feat: add notification system"),
+                GitCommit("jkl0123456", "fix: resolve memory leak")
             )
         )
         
@@ -263,8 +262,8 @@ class ChangelogGenerationTest {
         
         // Mock new version data
         val newVersionCommits = listOf(
-            GitCommit("abc123", "feat: add new feature"),
-            GitCommit("def456", "fix: important bug fix")
+            GitCommit("abc1234567", "feat: add new feature"),
+            GitCommit("def4567890", "fix: important bug fix")
         )
         
         changelogGenerator.updateChangelog(changelogFile, "1.1.0", newVersionCommits, "2025-01-15")
@@ -324,6 +323,8 @@ class ChangelogGenerator {
                 // Categorize based on keywords
                 val lowerMessage = commitMessage.toLowerCase()
                 return when {
+                    lowerMessage.contains(Regex("(security|secure|vulnerability|cve)")) -> 
+                        CommitCategory("Security", "$commitMessage ($shortHash)")
                     lowerMessage.contains(Regex("(add|new|implement|create|introduce)")) -> 
                         CommitCategory("Added", "$commitMessage ($shortHash)")
                     lowerMessage.contains(Regex("(fix|bug|issue|resolve|patch)")) -> 
@@ -332,8 +333,6 @@ class ChangelogGenerator {
                         CommitCategory("Changed", "$commitMessage ($shortHash)")
                     lowerMessage.contains(Regex("(remove|delete|drop|deprecate)")) -> 
                         CommitCategory("Removed", "$commitMessage ($shortHash)")
-                    lowerMessage.contains(Regex("(security|secure|vulnerability|cve)")) -> 
-                        CommitCategory("Security", "$commitMessage ($shortHash)")
                     else -> 
                         CommitCategory("Changed", "$commitMessage ($shortHash)")
                 }

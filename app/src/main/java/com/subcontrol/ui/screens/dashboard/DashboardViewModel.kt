@@ -50,7 +50,13 @@ class DashboardViewModel @Inject constructor(
                     calculateCostsUseCase.getUpcomingCosts(7),
                     getSubscriptionsUseCase.getActiveSubscriptions(),
                     getSubscriptionsUseCase.getTrialSubscriptions()
-                ) { monthlyCost, yearlyCost, categoryBreakdown, upcomingCosts, activeSubscriptions, trialSubscriptions ->
+                ) { values ->
+                    val monthlyCost = values[0] as BigDecimal
+                    val yearlyCost = values[1] as BigDecimal
+                    val categoryBreakdown = values[2] as Map<String, BigDecimal>
+                    val upcomingCosts = values[3] as List<UpcomingCost>
+                    val activeSubscriptions = values[4] as List<Subscription>
+                    val trialSubscriptions = values[5] as List<Subscription>
                     
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,

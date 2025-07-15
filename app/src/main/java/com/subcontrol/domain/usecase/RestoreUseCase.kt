@@ -62,7 +62,7 @@ class RestoreUseCase @Inject constructor(
             
             // Save restored subscriptions
             subscriptions.forEach { subscription ->
-                subscriptionRepository.saveSubscription(subscription)
+                subscriptionRepository.addSubscription(subscription)
             }
             
             RestoreResult.Success(subscriptions.size)
@@ -154,13 +154,17 @@ class RestoreUseCase @Inject constructor(
             cost = BigDecimal(cost),
             currency = currency,
             billingPeriod = BillingPeriod.valueOf(billingPeriod),
-            nextRenewal = LocalDate.parse(nextRenewal, DateTimeFormatter.ISO_LOCAL_DATE),
+            billingCycle = 1,
+            startDate = LocalDate.parse(nextRenewal, DateTimeFormatter.ISO_LOCAL_DATE).minusMonths(1), // Approximate start date
+            nextBillingDate = LocalDate.parse(nextRenewal, DateTimeFormatter.ISO_LOCAL_DATE),
+            trialEndDate = trialEndDate?.let { LocalDate.parse(it, DateTimeFormatter.ISO_LOCAL_DATE) },
+            status = if (isActive) com.subcontrol.domain.model.SubscriptionStatus.ACTIVE else com.subcontrol.domain.model.SubscriptionStatus.PAUSED,
+            notificationDaysBefore = reminderDaysBefore,
             category = category,
             tags = tags,
             notes = notes,
-            isActive = isActive,
-            reminderDaysBefore = reminderDaysBefore,
-            trialEndDate = trialEndDate?.let { LocalDate.parse(it, DateTimeFormatter.ISO_LOCAL_DATE) }
+            createdAt = java.time.LocalDateTime.now(),
+            updatedAt = java.time.LocalDateTime.now()
         )
     }
 }

@@ -11,6 +11,7 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -341,7 +342,10 @@ class SubscriptionListViewModelTest {
     fun `repository error sets error state`() = runTest {
         // Given
         val errorMessage = "Repository error"
-        coEvery { subscriptionRepository.getAllSubscriptions() } throws Exception(errorMessage)
+        // Return a Flow that throws an exception
+        coEvery { subscriptionRepository.getAllSubscriptions() } returns flow {
+            throw Exception(errorMessage)
+        }
 
         // When
         val newViewModel = SubscriptionListViewModel(subscriptionRepository)

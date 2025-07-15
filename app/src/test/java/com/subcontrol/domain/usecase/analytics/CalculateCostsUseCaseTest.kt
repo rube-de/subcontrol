@@ -16,8 +16,8 @@ import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.YearMonth
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 
 class CalculateCostsUseCaseTest {
     
@@ -249,7 +249,8 @@ class CalculateCostsUseCaseTest {
         val result = useCase.getAverageMonthlyCost(3, "USD").first()
         
         // Then
-        assertEquals(BigDecimal.ZERO, result)
+        // Use compareTo to check if values are equal regardless of scale
+        assertTrue("Result should be zero", result.compareTo(BigDecimal.ZERO) == 0)
         verify { repository.getAllSubscriptions() }
     }
     

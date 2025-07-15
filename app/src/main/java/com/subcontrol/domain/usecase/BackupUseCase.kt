@@ -55,12 +55,12 @@ class BackupUseCase @Inject constructor(
             cost = cost.toString(),
             currency = currency,
             billingPeriod = billingPeriod.name,
-            nextRenewal = nextRenewal.format(DateTimeFormatter.ISO_LOCAL_DATE),
+            nextRenewal = nextBillingDate.format(DateTimeFormatter.ISO_LOCAL_DATE),
             category = category,
             tags = tags,
             notes = notes,
             isActive = isActive,
-            reminderDaysBefore = reminderDaysBefore,
+            reminderDaysBefore = notificationDaysBefore,
             trialEndDate = trialEndDate?.format(DateTimeFormatter.ISO_LOCAL_DATE)
         )
     }
