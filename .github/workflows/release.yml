@@ -83,7 +83,9 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-          buildToolsVersion: "34.0.0"
+          zipAlign: true
+        env:
+          BUILD_TOOLS_VERSION: "34.0.0"
           
       - name: Rename APK
         run: |

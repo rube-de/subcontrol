@@ -272,8 +272,8 @@ The `r0adkll/sign-android-release@v1` action was looking for zipalign in an olde
 **Solution:**
 Switch to the `kevin-david/zipalign-sign-android-release@v2` fork which:
 - Has better support for newer build-tools versions
-- Allows explicit build-tools version specification via `buildToolsVersion` parameter
-- Uses build-tools 35.0.0 by default
+- Allows explicit build-tools version specification via `BUILD_TOOLS_VERSION` environment variable
+- Defaults to build-tools 33.0.0 (despite documentation claiming 35.0.0)
 
 **Fixed Configuration:**
 ```yaml
@@ -286,7 +286,9 @@ Switch to the `kevin-david/zipalign-sign-android-release@v2` fork which:
     alias: ${{ secrets.ALIAS }}
     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
     keyPassword: ${{ secrets.KEY_PASSWORD }}
-    buildToolsVersion: "34.0.0"
+    zipAlign: true  # Actually zipalign the APK instead of just verifying
+  env:
+    BUILD_TOOLS_VERSION: "34.0.0"  # Must be set as env var, not parameter
 ```
 
 **Key Learnings:**
@@ -294,3 +296,6 @@ Switch to the `kevin-david/zipalign-sign-android-release@v2` fork which:
 - Check for maintained forks when the original action has compatibility issues
 - Always match the build-tools version between SDK installation and action usage
 - The `kevin-david/zipalign-sign-android-release@v2` fork is actively maintained and more compatible with modern Android projects
+- **IMPORTANT**: The build-tools version must be set as an environment variable (`BUILD_TOOLS_VERSION`), not as a parameter
+- The `zipAlign: true` parameter is needed to actually zipalign the APK (default is false, which only verifies)
+- Parameter names are case-sensitive - using `buildToolsVersion` as a parameter will cause an "Unexpected input(s)" error
