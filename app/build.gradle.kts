@@ -34,6 +34,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Don't sign in gradle, we'll sign in CI/CD
+            signingConfig = null
         }
         debug {
             isDebuggable = true

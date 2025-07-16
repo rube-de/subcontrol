@@ -90,7 +90,28 @@ jobs:
       - name: Rename APK
         run: |
           VERSION=${{ steps.version.outputs.VERSION }}
-          mv app/build/outputs/apk/release/app-release-unsigned-signed.apk "SubControl-v$VERSION.apk"
+          SIGNED_APK="${{ steps.sign_apk.outputs.signedReleaseFile }}"
+          
+          # Debug: List files in the release directory
+          echo "Files in release directory:"
+          ls -la app/build/outputs/apk/release/
+          
+          # Check if the signed file exists
+          if [ -f "$SIGNED_APK" ]; then
+            echo "Found signed APK: $SIGNED_APK"
+            mv "$SIGNED_APK" "SubControl-v$VERSION.apk"
+          else
+            # Fallback: look for any signed APK file
+            echo "Looking for signed APK files..."
+            SIGNED_FILE=$(find app/build/outputs/apk/release/ -name "*signed*.apk" -o -name "*release*.apk" | head -1)
+            if [ -f "$SIGNED_FILE" ]; then
+              echo "Found APK: $SIGNED_FILE"
+              mv "$SIGNED_FILE" "SubControl-v$VERSION.apk"
+            else
+              echo "Error: No signed APK found!"
+              exit 1
+            fi
+          fi
           
       - name: Verify APK signature
         run: |

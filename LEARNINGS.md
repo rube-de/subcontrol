@@ -299,3 +299,35 @@ Switch to the `kevin-david/zipalign-sign-android-release@v2` fork which:
 - **IMPORTANT**: The build-tools version must be set as an environment variable (`BUILD_TOOLS_VERSION`), not as a parameter
 - The `zipAlign: true` parameter is needed to actually zipalign the APK (default is false, which only verifies)
 - Parameter names are case-sensitive - using `buildToolsVersion` as a parameter will cause an "Unexpected input(s)" error
+
+### Issue: APK signing workflow failures in GitHub Actions
+**Date:** 2025-01-16
+**Error:** "Process completed with exit code 1" after signing step
+
+**Root Causes:**
+1. The output filename from the signing action might not match what we expect
+2. Gradle release builds might be configured to require signing, preventing unsigned APK generation
+3. The signing action's output path might be different than assumed
+
+**Solutions:**
+1. Use the action's output variable `${{ steps.sign_apk.outputs.signedReleaseFile }}` instead of hardcoded filenames
+2. Add `signingConfig = null` to the release build type to ensure gradle produces unsigned APKs
+3. Add debug logging to identify the actual output files
+
+**Fixed Rename Step:**
+```bash
+SIGNED_APK="${{ steps.sign_apk.outputs.signedReleaseFile }}"
+if [ -f "$SIGNED_APK" ]; then
+    mv "$SIGNED_APK" "SubControl-v$VERSION.apk"
+else
+    # Fallback: find any signed APK
+    SIGNED_FILE=$(find app/build/outputs/apk/release/ -name "*signed*.apk" -o -name "*release*.apk" | head -1)
+    mv "$SIGNED_FILE" "SubControl-v$VERSION.apk"
+fi
+```
+
+**Key Learnings:**
+- Always use action output variables rather than assuming filenames
+- Ensure gradle is configured to produce unsigned APKs when signing externally
+- Add debug logging in CI/CD pipelines to diagnose file-related issues
+- The cache error "Error: Cache service responded with 400" is just a warning and can be ignored
