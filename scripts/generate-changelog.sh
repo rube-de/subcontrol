@@ -45,22 +45,23 @@ categorize_commit() {
     local commit_hash="$2"
     
     # Extract the type from conventional commit format
-    if [[ $commit_msg =~ ^(feat|feature)(\([^)]+\))?: ]]; then
+    # Using a simpler regex pattern that's more compatible
+    if [[ $commit_msg =~ ^(feat|feature)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(feat|feature): ]]; then
         echo "### Added"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
-    elif [[ $commit_msg =~ ^(fix|bugfix)(\([^)]+\))?: ]]; then
+    elif [[ $commit_msg =~ ^(fix|bugfix)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(fix|bugfix): ]]; then
         echo "### Fixed"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
-    elif [[ $commit_msg =~ ^(chore|build|ci|docs)(\([^)]+\))?: ]]; then
+    elif [[ $commit_msg =~ ^(chore|build|ci|docs)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(chore|build|ci|docs): ]]; then
         echo "### Changed"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
-    elif [[ $commit_msg =~ ^(refactor|perf|style)(\([^)]+\))?: ]]; then
+    elif [[ $commit_msg =~ ^(refactor|perf|style)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(refactor|perf|style): ]]; then
         echo "### Changed"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
-    elif [[ $commit_msg =~ ^(test)(\([^)]+\))?: ]]; then
+    elif [[ $commit_msg =~ ^(test)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(test): ]]; then
         echo "### Changed"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
-    elif [[ $commit_msg =~ ^(breaking|break)(\([^)]+\))?: ]]; then
+    elif [[ $commit_msg =~ ^(breaking|break)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(breaking|break): ]]; then
         echo "### Breaking Changes"
         echo "- ${commit_msg#*: } (${commit_hash:0:7})"
     else

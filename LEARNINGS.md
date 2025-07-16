@@ -432,3 +432,30 @@ res/
 - Keep icon design simple and recognizable at small sizes
 - Test icons on different launcher shapes (square, circle, squircle)
 - Ensure sufficient contrast between foreground and background
+
+### Issue: Bash regex syntax error in changelog script
+**Date:** 2025-01-16
+**Error:** "syntax error in conditional expression: unexpected token ')'"
+
+**Root Cause:**
+Bash regex patterns using `[[ $var =~ pattern ]]` have specific syntax requirements. The pattern `[^)]+` was causing syntax errors because the closing parenthesis inside the character class wasn't properly handled.
+
+**Solution:**
+1. Escape the closing parenthesis in character classes: `[^\)]`
+2. Use `*` instead of `+` for zero or more matches: `[^\)]*`
+3. Split complex patterns into multiple conditions with `||`
+
+**Fixed Pattern:**
+```bash
+# Before (causes syntax error)
+if [[ $commit_msg =~ ^(feat|feature)(\([^)]+\))?: ]]; then
+
+# After (works correctly)
+if [[ $commit_msg =~ ^(feat|feature)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(feat|feature): ]]; then
+```
+
+**Key Learnings:**
+- Bash regex syntax differs from standard regex in some cases
+- Always escape special characters in character classes
+- Test scripts with `bash -n script.sh` to check syntax
+- Consider splitting complex regex patterns for better compatibility
