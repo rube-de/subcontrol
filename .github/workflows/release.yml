@@ -13,6 +13,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for changelog generation
+          token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -237,12 +240,20 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
+          # Check if we're in detached HEAD state (typical for tag checkouts)
+          if [ -z "$(git branch --show-current)" ]; then
+            echo "In detached HEAD state - checking out main branch"
+            git fetch origin main
+            git checkout main
+            git pull origin main
+          fi
+          
           # Add and commit changelog if it was modified
           if [ -f "CHANGELOG.md" ]; then
             git add CHANGELOG.md
             if ! git diff --cached --quiet; then
               git commit -m "Update CHANGELOG.md for version $VERSION"
-              git push origin $(git branch --show-current)
+              git push origin main
             else
               echo "No changes to CHANGELOG.md"
             fi

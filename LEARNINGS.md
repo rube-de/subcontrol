@@ -459,3 +459,42 @@ if [[ $commit_msg =~ ^(feat|feature)(\([^\)]*\))?: ]] || [[ $commit_msg =~ ^(fea
 - Always escape special characters in character classes
 - Test scripts with `bash -n script.sh` to check syntax
 - Consider splitting complex regex patterns for better compatibility
+
+### Issue: Detached HEAD state in GitHub Actions release workflow
+**Date:** 2025-01-16
+**Error:** "fatal: You are not currently on a branch" when pushing changelog updates
+
+**Root Cause:**
+When GitHub Actions checks out a tag (during release workflow), it creates a detached HEAD state. The command `git branch --show-current` returns empty, and attempting to push fails because there's no current branch.
+
+**Solution:**
+1. Check if in detached HEAD state before attempting to push
+2. If detached, checkout the main branch first
+3. Always specify the target branch explicitly when pushing
+
+**Fixed Workflow:**
+```yaml
+# In checkout step
+- uses: actions/checkout@v4
+  with:
+    fetch-depth: 0  # Fetch all history for changelog
+    token: ${{ secrets.GITHUB_TOKEN }}
+
+# In commit step
+if [ -z "$(git branch --show-current)" ]; then
+  echo "In detached HEAD state - checking out main branch"
+  git fetch origin main
+  git checkout main
+  git pull origin main
+fi
+
+# Push to specific branch
+git push origin main
+```
+
+**Key Learnings:**
+- Tag checkouts in GitHub Actions create detached HEAD states
+- Always check branch state before pushing in workflows
+- Use `fetch-depth: 0` to get full history for changelog generation
+- Explicitly specify target branch when pushing from workflows
+- Consider if changelog updates should be part of release workflow or done separately
