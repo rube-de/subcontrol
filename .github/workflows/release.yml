@@ -34,15 +34,39 @@ jobs:
           # Add build-tools to PATH
           echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
           
+      - name: Debug - Environment Info
+        run: |
+          echo "=== Environment Information ==="
+          echo "Runner OS: ${{ runner.os }}"
+          echo "GitHub Ref: ${{ github.ref }}"
+          echo "GitHub SHA: ${{ github.sha }}"
+          echo "Java Version:"
+          java -version
+          echo "Gradle Version:"
+          ./gradlew --version || echo "Gradle not yet available"
+          echo "Android SDK Path: $ANDROID_HOME"
+          echo "PATH: $PATH"
+          
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
+        id: gradle-cache
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          # Simpler cache key to avoid 400 errors
+          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('gradle/libs.versions.toml') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            gradle-${{ runner.os }}-
+        # Continue on cache errors since they're just warnings
+        continue-on-error: true
+        
+      - name: Debug - Cache status
+        run: |
+          echo "=== Cache Status ==="
+          echo "Cache hit: ${{ steps.gradle-cache.outputs.cache-hit }}"
+          echo "Gradle home:"
+          ls -la ~/.gradle/ || echo "Gradle home not found"
             
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -71,9 +95,35 @@ jobs:
           
           echo "Updated version to $VERSION (code: $VERSION_CODE)"
           
+      - name: Debug - Pre-build checks
+        run: |
+          echo "=== Pre-build Checks ==="
+          echo "Current directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          echo "Gradle wrapper permissions:"
+          ls -la gradlew
+          echo "Build.gradle.kts content (first 20 lines):"
+          head -20 app/build.gradle.kts
+          
       - name: Build release APK
-        run: ./gradlew assembleRelease
+        run: |
+          echo "=== Starting Release Build ==="
+          ./gradlew assembleRelease --info --stacktrace
+          echo "=== Build Complete ==="
+          echo "Checking output directory:"
+          ls -la app/build/outputs/apk/release/ || echo "Release directory not found!"
         
+      - name: Debug - Pre-signing checks
+        run: |
+          echo "=== Pre-signing Checks ==="
+          echo "Release directory contents:"
+          ls -la app/build/outputs/apk/release/
+          echo "APK file details:"
+          find app/build/outputs/apk/release/ -name "*.apk" -exec file {} \; -exec ls -la {} \;
+          echo "Build tools check:"
+          ls -la $ANDROID_HOME/build-tools/34.0.0/ | grep -E "(zipalign|apksigner)" || echo "Build tools not found!"
+          
       - name: Sign APK
         id: sign_apk
         uses: kevin-david/zipalign-sign-android-release@v2

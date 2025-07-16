@@ -331,3 +331,42 @@ fi
 - Ensure gradle is configured to produce unsigned APKs when signing externally
 - Add debug logging in CI/CD pipelines to diagnose file-related issues
 - The cache error "Error: Cache service responded with 400" is just a warning and can be ignored
+
+### Issue: GitHub Actions cache service 400 errors
+**Date:** 2025-01-16
+**Error:** "Cache service responded with 400" when restoring Gradle cache
+
+**Root Causes:**
+1. Cache key too long or contains invalid characters
+2. GitHub Actions cache service limitations
+3. Complex hash keys from multiple gradle files
+
+**Solutions:**
+1. Use simpler cache keys with specific file paths
+2. Add `continue-on-error: true` to cache steps
+3. Use more specific file paths in hashFiles() instead of wildcards
+4. Add debugging to verify cache behavior
+
+**Improved Cache Configuration:**
+```yaml
+- name: Cache Gradle dependencies
+  uses: actions/cache@v4
+  id: gradle-cache
+  with:
+    path: |
+      ~/.gradle/caches
+      ~/.gradle/wrapper
+    # Simpler cache key to avoid 400 errors
+    key: gradle-${{ runner.os }}-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('gradle/libs.versions.toml') }}
+    restore-keys: |
+      gradle-${{ runner.os }}-
+  # Continue on cache errors since they're just warnings
+  continue-on-error: true
+```
+
+**Key Learnings:**
+- Cache errors with 400 status are typically non-fatal warnings
+- Simpler cache keys reduce the chance of 400 errors
+- Always use `continue-on-error: true` for cache steps in release workflows
+- Add debugging logs to understand actual build failures vs cache warnings
+- The gradle-build-action@v2 also manages its own caching independently
