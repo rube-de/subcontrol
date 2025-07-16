@@ -240,6 +240,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
+          # We only want to commit the CHANGELOG.md, not the version changes in build.gradle.kts
+          # Reset any changes to build.gradle.kts first
+          git checkout -- app/build.gradle.kts || true
+          
           # Check if we're in detached HEAD state (typical for tag checkouts)
           if [ -z "$(git branch --show-current)" ]; then
             echo "In detached HEAD state - checking out main branch"

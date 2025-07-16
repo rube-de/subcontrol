@@ -498,3 +498,11 @@ git push origin main
 - Use `fetch-depth: 0` to get full history for changelog generation
 - Explicitly specify target branch when pushing from workflows
 - Consider if changelog updates should be part of release workflow or done separately
+
+**Additional Fix - Version Update Conflicts:**
+When the workflow updates version in build.gradle.kts, it creates local changes that prevent branch switching. Solution:
+```bash
+# Reset build.gradle.kts before switching branches
+git checkout -- app/build.gradle.kts || true
+```
+This ensures only CHANGELOG.md is committed back to the repository, while version updates are used only for the build process.
