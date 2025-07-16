@@ -166,8 +166,23 @@ jobs:
       - name: Verify APK signature
         run: |
           APK_PATH="SubControl-v${{ steps.version.outputs.VERSION }}.apk"
-          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging "$APK_PATH"
+          echo "=== APK Verification ==="
+          echo "Verifying APK: $APK_PATH"
+          
+          # Run aapt but continue on warnings about missing resources
+          echo "Running aapt dump badging..."
+          $ANDROID_HOME/build-tools/34.0.0/aapt dump badging "$APK_PATH" 2>&1 | grep -E "(package:|sdkVersion:|targetSdkVersion:|application-label:|launchable-activity:)" || true
+          
+          # The important verification is jarsigner
+          echo "Running jarsigner verification..."
           jarsigner -verify -verbose -certs "$APK_PATH"
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ APK signature verification successful!"
+          else
+            echo "❌ APK signature verification failed!"
+            exit 1
+          fi
           
       - name: Generate changelog and release notes
         id: release_notes

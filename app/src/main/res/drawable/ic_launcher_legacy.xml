@@ -1,0 +1,50 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+  
+  <!-- Background -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M24,2 A22,22 0 1,1 24,46 A22,22 0 1,1 24,2z"/>
+  
+  <!-- Blue gradient effect background -->
+  <path
+      android:fillColor="#E3F2FD"
+      android:pathData="M24,6 A18,18 0 1,1 24,42 A18,18 0 1,1 24,6z"/>
+  
+  <!-- Calendar icon -->
+  <path
+      android:fillColor="#1976D2"
+      android:pathData="M16,12 L32,12 Q34,12 34,14 L34,32 Q34,34 32,34 L16,34 Q14,34 14,32 L14,14 Q14,12 16,12z"/>
+  
+  <!-- Calendar header -->
+  <path
+      android:fillColor="#0D47A1"
+      android:pathData="M14,14 L34,14 L34,19 L14,19 z"/>
+  
+  <!-- Calendar hooks -->
+  <path
+      android:fillColor="#0D47A1"
+      android:pathData="M19,10 L19,16 M29,10 L29,16"
+      android:strokeWidth="2"
+      android:strokeColor="#0D47A1"/>
+  
+  <!-- Renewal symbol -->
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M24,21 A5,5 0 1,1 24,29 L24,28 A4,4 0 1,0 24,22 z"/>
+  
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M24,29 A5,5 0 1,1 24,21 L24,22 A4,4 0 1,0 24,28 z"/>
+  
+  <!-- Dollar sign -->
+  <path
+      android:fillColor="#0D47A1"
+      android:strokeColor="#0D47A1"
+      android:strokeWidth="0.5"
+      android:pathData="M24,23 L24,27 M23,24 L25,24 M23,26 L25,26"/>
+  
+</vector>
