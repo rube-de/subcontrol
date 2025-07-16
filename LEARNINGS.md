@@ -261,3 +261,36 @@ The Android SDK and build-tools are not automatically installed in GitHub Action
 - Java 17 is required for modern Android projects
 - Always make gradlew executable with `chmod +x`
 - The `r0adkll/sign-android-release@v1` action handles zipalign internally, but you still need build-tools for other commands like `aapt`
+
+### Issue: r0adkll/sign-android-release@v1 zipalign path mismatch
+**Date:** 2025-01-16
+**Error:** `Unable to locate executable file: /usr/local/lib/android/sdk/build-tools/29.0.3/zipalign`
+
+**Root Cause:**
+The `r0adkll/sign-android-release@v1` action was looking for zipalign in an older build-tools version (29.0.3) while the workflow installed version 34.0.0.
+
+**Solution:**
+Switch to the `kevin-david/zipalign-sign-android-release@v2` fork which:
+- Has better support for newer build-tools versions
+- Allows explicit build-tools version specification via `buildToolsVersion` parameter
+- Uses build-tools 35.0.0 by default
+
+**Fixed Configuration:**
+```yaml
+- name: Sign APK
+  id: sign_apk
+  uses: kevin-david/zipalign-sign-android-release@v2
+  with:
+    releaseDirectory: app/build/outputs/apk/release
+    signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+    alias: ${{ secrets.ALIAS }}
+    keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+    keyPassword: ${{ secrets.KEY_PASSWORD }}
+    buildToolsVersion: "34.0.0"
+```
+
+**Key Learnings:**
+- Some GitHub Actions may have hardcoded paths to older Android SDK versions
+- Check for maintained forks when the original action has compatibility issues
+- Always match the build-tools version between SDK installation and action usage
+- The `kevin-david/zipalign-sign-android-release@v2` fork is actively maintained and more compatible with modern Android projects
