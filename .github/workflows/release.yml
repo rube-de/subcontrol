@@ -248,23 +248,22 @@ jobs:
           if [ -z "$(git branch --show-current)" ]; then
             echo "In detached HEAD state - checking out main branch"
             
-            # Handle any untracked files that might block checkout
-            if [ -f "CHANGELOG.md" ] && ! git ls-files --error-unmatch CHANGELOG.md >/dev/null 2>&1; then
-              echo "CHANGELOG.md is untracked, stashing it temporarily"
-              mkdir -p /tmp/workflow-stash
-              cp CHANGELOG.md /tmp/workflow-stash/CHANGELOG.md
-            fi
+            # Use git stash to handle any local changes including untracked files
+            echo "Stashing local changes including untracked files"
+            git add -A  # Stage all files including untracked
+            git stash push -m "Temporary stash for branch switch" --include-untracked
             
+            # Now we can safely switch branches
             git fetch origin main
             git checkout main
             git pull origin main
             
-            # Restore the CHANGELOG.md if we stashed it
-            if [ -f "/tmp/workflow-stash/CHANGELOG.md" ]; then
-              echo "Restoring CHANGELOG.md"
-              cp /tmp/workflow-stash/CHANGELOG.md CHANGELOG.md
-              rm -rf /tmp/workflow-stash
-            fi
+            # Pop the stash to restore our changes
+            echo "Restoring stashed changes"
+            git stash pop || true  # Don't fail if there are conflicts
+            
+            # If CHANGELOG.md was in the stash but not in the working tree, unstage it
+            git reset HEAD CHANGELOG.md 2>/dev/null || true
           fi
           
           # Add and commit changelog if it was modified

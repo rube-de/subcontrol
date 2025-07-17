@@ -556,24 +556,28 @@ NO_COLOR=1 ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_
 When the workflow creates CHANGELOG.md for the first time in a detached HEAD state (tag checkout), the file is untracked. Attempting to checkout main branch fails if CHANGELOG.md already exists there.
 
 **Solution:**
-Temporarily save untracked files before switching branches:
+Use git stash with --include-untracked to handle all local changes:
 ```bash
-# Check if CHANGELOG.md is untracked
-if [ -f "CHANGELOG.md" ] && ! git ls-files --error-unmatch CHANGELOG.md >/dev/null 2>&1; then
-  echo "CHANGELOG.md is untracked, stashing it temporarily"
-  mkdir -p /tmp/workflow-stash
-  cp CHANGELOG.md /tmp/workflow-stash/CHANGELOG.md
-fi
+# Stash all changes including untracked files
+git add -A  # Stage everything first
+git stash push -m "Temporary stash for branch switch" --include-untracked
 
-# Switch branches
+# Switch branches safely
+git fetch origin main
 git checkout main
+git pull origin main
 
-# Restore the file
-if [ -f "/tmp/workflow-stash/CHANGELOG.md" ]; then
-  cp /tmp/workflow-stash/CHANGELOG.md CHANGELOG.md
-  rm -rf /tmp/workflow-stash
-fi
+# Restore the stashed changes
+git stash pop || true  # Don't fail on conflicts
+
+# Unstage files if needed
+git reset HEAD CHANGELOG.md 2>/dev/null || true
 ```
+
+This approach is more robust because:
+- Git stash handles both tracked and untracked files
+- It preserves file content even if conflicts occur
+- Works regardless of whether files exist in the target branch
 
 **Key Learnings:**
 - Always check if files are tracked before switching branches
