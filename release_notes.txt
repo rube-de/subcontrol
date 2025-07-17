@@ -1,0 +1,1 @@
+Release version 0.2.2-alpha of SubControl - Privacy-focused Android Subscription Manager
