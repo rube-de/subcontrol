@@ -53,6 +53,10 @@ mockk = "1.13.11"
 turbine = "1.1.0"
 compose-test = "1.6.8"
 
+# Performance Benchmarking
+benchmark-macro = "1.3.0-alpha01"
+benchmark-common = "1.3.0-alpha01"
+
 [libraries]
 # AndroidX Core
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -113,6 +117,10 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 
+# Performance Benchmarking
+androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro", version.ref = "benchmark-macro" }
+androidx-benchmark-common = { group = "androidx.benchmark", name = "benchmark-common", version.ref = "benchmark-common" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -128,3 +136,4 @@ lifecycle = ["androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-com
 coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-android"]
 testing-unit = ["junit", "mockk", "turbine", "kotlinx-coroutines-test"]
 testing-android = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4"]
+benchmarking = ["androidx-benchmark-macro", "androidx-benchmark-common"]

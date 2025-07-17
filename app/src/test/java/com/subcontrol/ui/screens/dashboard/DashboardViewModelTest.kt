@@ -30,6 +30,7 @@ class DashboardViewModelTest {
     
     private val getSubscriptionsUseCase = mockk<GetSubscriptionsUseCase>()
     private val calculateCostsUseCase = mockk<CalculateCostsUseCase>()
+    private val performanceMonitor = mockk<com.subcontrol.performance.PerformanceMonitor>(relaxed = true)
     private lateinit var viewModel: DashboardViewModel
     
     private val testSubscription = Subscription(
@@ -86,7 +87,7 @@ class DashboardViewModelTest {
         every { getSubscriptionsUseCase.getActiveSubscriptions() } returns flowOf(listOf(testSubscription))
         every { getSubscriptionsUseCase.getTrialSubscriptions() } returns flowOf(emptyList())
         
-        viewModel = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase)
+        viewModel = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase, performanceMonitor)
     }
     
     @Test
@@ -141,7 +142,7 @@ class DashboardViewModelTest {
         every { calculateCostsUseCase.getTotalMonthlyCost(any()) } throws RuntimeException("Test error")
         
         // When - ViewModel is initialized
-        val viewModelWithError = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase)
+        val viewModelWithError = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase, performanceMonitor)
         
         // Then - error should be captured
         val state = viewModelWithError.uiState.value
@@ -153,7 +154,7 @@ class DashboardViewModelTest {
     fun `dismissError clears error state`() = runTest {
         // Given - ViewModel with error
         every { calculateCostsUseCase.getTotalMonthlyCost(any()) } throws RuntimeException("Test error")
-        val viewModelWithError = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase)
+        val viewModelWithError = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase, performanceMonitor)
         
         // When - error is dismissed
         viewModelWithError.dismissError()
@@ -221,7 +222,7 @@ class DashboardViewModelTest {
         every { calculateCostsUseCase.getTotalMonthlyCost(any()) } returns flowOf(BigDecimal("50.00"))
         every { calculateCostsUseCase.getTotalYearlyCost(any()) } returns flowOf(BigDecimal("500.00"))
         
-        val viewModelWithSavings = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase)
+        val viewModelWithSavings = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase, performanceMonitor)
         
         // When - calculating annual savings
         val savings = viewModelWithSavings.getAnnualSavings()
@@ -242,7 +243,7 @@ class DashboardViewModelTest {
         every { getSubscriptionsUseCase.getTrialSubscriptions() } returns flowOf(emptyList())
         
         // When - ViewModel is initialized
-        val emptyViewModel = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase)
+        val emptyViewModel = DashboardViewModel(getSubscriptionsUseCase, calculateCostsUseCase, performanceMonitor)
         
         // Then - state should contain zero values
         val state = emptyViewModel.uiState.value

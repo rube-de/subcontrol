@@ -6,6 +6,7 @@ import com.subcontrol.domain.model.Subscription
 import com.subcontrol.domain.usecase.analytics.CalculateCostsUseCase
 import com.subcontrol.domain.usecase.analytics.UpcomingCost
 import com.subcontrol.domain.usecase.subscription.GetSubscriptionsUseCase
+import com.subcontrol.performance.PerformanceMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val getSubscriptionsUseCase: GetSubscriptionsUseCase,
-    private val calculateCostsUseCase: CalculateCostsUseCase
+    private val calculateCostsUseCase: CalculateCostsUseCase,
+    private val performanceMonitor: PerformanceMonitor
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -39,6 +41,9 @@ class DashboardViewModel @Inject constructor(
      */
     private fun loadDashboardData() {
         viewModelScope.launch {
+            // Start performance monitoring
+            performanceMonitor.startTiming(PerformanceMonitor.DASHBOARD_LOAD)
+            
             _uiState.value = _uiState.value.copy(isLoading = true)
             
             try {
@@ -68,11 +73,17 @@ class DashboardViewModel @Inject constructor(
                         trialSubscriptionsCount = trialSubscriptions.size,
                         error = null
                     )
+                    
+                    // End performance monitoring
+                    performanceMonitor.endTiming(PerformanceMonitor.DASHBOARD_LOAD)
                 }.catch { exception ->
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         error = exception.message ?: "Unknown error occurred"
                     )
+                    
+                    // End performance monitoring even on error
+                    performanceMonitor.endTiming(PerformanceMonitor.DASHBOARD_LOAD)
                 }.collect { }
                 
             } catch (e: Exception) {
@@ -80,6 +91,9 @@ class DashboardViewModel @Inject constructor(
                     isLoading = false,
                     error = e.message ?: "Unknown error occurred"
                 )
+                
+                // End performance monitoring even on error
+                performanceMonitor.endTiming(PerformanceMonitor.DASHBOARD_LOAD)
             }
         }
     }

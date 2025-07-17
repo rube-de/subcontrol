@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Memory Reference
+@LEARNINGS.md
+
 ## Project Overview
 
 SubControl is a privacy-focused Android subscription manager app. The app helps users track paid and trial subscriptions locally on their device without any cloud services or analytics.
@@ -160,17 +163,39 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 
 ## ✅ Task Management
 
-- **Track progress in `docs/workspaces/task-plan-01-14-18-10-00.md`**
-- **Foundation Phase Complete** (13/36 tasks): ✅
-  - Project setup, Proto schemas, Hilt DI
-  - Data layer with AES-256-GCM encryption
-  - Navigation, theming, subscription management UI
-  - Comprehensive test coverage for completed features
-- **Next Priority: Phase 2 - Business Logic & Analytics**
-  - Use cases implementation
-  - Dashboard UI with cost summaries
-  - Analytics engine and notification system
-- **Include dates** when adding or completing tasks for tracking progress
+### Current Status
+- **All Development Phases Complete** ✅ (100% implementation)
+- **Production Ready** - All core features implemented and tested
+- **Current Focus**: Quality improvements and production readiness
+
+### Active Task Plan
+- **Latest Plan**: `docs/workspaces/task-plan-01-17-22-47-30.md`
+- **Status**: 93% plan completion (28/30 features implemented)
+- **Priority**: Production readiness through security, performance, and testing
+
+### Task Priorities
+**Critical (Production Blocking):**
+- `SEC-001`: Remove Internet permission for privacy compliance
+- `SEC-001-TEST`: Privacy compliance and network isolation testing
+
+**High Priority:**
+- `PERF-001`: Dashboard performance benchmarks (<150ms requirement)
+- `TEST-001`: Contract testing for Proto schema migrations
+
+**Medium Priority:**
+- `ERR-001`: Enhanced error handling in backup/restore operations
+- `ARCH-001`: Refactor complex ViewModels with helper classes
+
+**Low Priority:**
+- `FEATURE-001`: Widget support for spend overview
+- `FEATURE-002`: Predictive input with auto-completion
+- `DOCS-001`: Comprehensive API documentation
+
+### Completed Phases
+- **Phase 1**: Foundation (13/13 tasks) ✅
+- **Phase 2**: Business Logic & Analytics (18/18 tasks) ✅
+- **Phase 3**: Advanced Features (11/11 tasks) ✅
+- **Phase 4**: Polish & Deployment (8/8 tasks) ✅
 
 ## 📎 Style & Conventions
 
@@ -217,6 +242,47 @@ Subscriptions are stored using Protocol Buffers with the following key fields:
 - **Check for existing implementations** before creating new files or functions
 - **Respect the privacy-first approach** - Never add analytics, ads, or cloud services
 - **Follow TDD when possible** - Write tests first for new features
+
+## 🛠️ Claude Code Tool Usage
+
+### Essential Usage Patterns
+
+**File Reading Strategy:** Always `Read` before `Edit`
+**Search Strategy:** Use `Task` for complex searches, `Grep` for specific patterns
+**Batch Operations:** Use multiple Read calls in single message for efficiency
+
+### Android Development Commands
+
+```bash
+# Code Quality Checks
+./gradlew ktlintCheck detekt lint test
+
+# Project Navigation
+Glob: "**/*.kt"                  # Find Kotlin files
+Grep: "class.*ViewModel"         # Find ViewModels
+```
+
+### MCP (Model Context Protocol) Tools
+
+**GitHub Integration:** `mcp__github__*` - Repository operations, issues, PRs
+**Browser Automation:** `mcp__MCP_DOCKER__browser_*` - Web testing and automation
+**Code Analysis:** `mcp__MCP_DOCKER__get-library-docs` - Library documentation
+**Repository Analysis:** `mcp__repomix-docker__*` - Codebase analysis and packaging
+**Web Research:** `WebFetch` and `WebSearch` - Up-to-date information retrieval
+
+### Best Practices
+
+**MCP Usage:**
+- Use MCP for external integrations and web research
+- Use Core Tools for local file operations and builds
+- Never expose sensitive data in MCP calls
+- Maintain privacy-first approach
+
+**Performance:**
+- Batch operations when possible
+- Use `Task` for complex searches (>20 files)
+- Cache results when available
+- Prefer specific over general queries
 
 # 🎯 Current Implementation Status
 

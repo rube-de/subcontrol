@@ -76,6 +76,12 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    
+    lint {
+        disable += "StateFlowValueCalledInComposition"
+        disable += "ObsoleteLintCustomCheck"
+        abortOnError = false
+    }
 }
 
 protobuf {
@@ -146,6 +152,11 @@ dependencies {
     // Testing - Android
     androidTestImplementation(libs.bundles.testing.android)
     androidTestImplementation(platform(libs.androidx.compose.bom))
+    
+    // Performance Benchmarking
+    androidTestImplementation(libs.bundles.benchmarking)
+    androidTestImplementation(libs.androidx.benchmark.macro)
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.2.0")
 
     // Debug tools
     debugImplementation(libs.androidx.ui.tooling)

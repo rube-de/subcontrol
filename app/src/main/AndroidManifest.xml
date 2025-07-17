@@ -6,9 +6,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
     
-    <!-- Network permission for subscription validation (optional) -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Network permissions removed for privacy compliance (FR-007) -->
 
     <!-- Post notifications for subscription reminders -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
