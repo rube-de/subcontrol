@@ -547,3 +547,36 @@ NO_COLOR=1 ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_
 - Status messages should go to stderr, actual output to stdout
 - Set NO_COLOR=1 environment variable in CI/CD pipelines
 - Test scripts with redirected output to catch color code issues
+
+### Issue: Untracked CHANGELOG.md blocking branch checkout
+**Date:** 2025-01-16
+**Error:** "The following untracked working tree files would be overwritten by checkout: CHANGELOG.md"
+
+**Root Cause:**
+When the workflow creates CHANGELOG.md for the first time in a detached HEAD state (tag checkout), the file is untracked. Attempting to checkout main branch fails if CHANGELOG.md already exists there.
+
+**Solution:**
+Temporarily save untracked files before switching branches:
+```bash
+# Check if CHANGELOG.md is untracked
+if [ -f "CHANGELOG.md" ] && ! git ls-files --error-unmatch CHANGELOG.md >/dev/null 2>&1; then
+  echo "CHANGELOG.md is untracked, stashing it temporarily"
+  mkdir -p /tmp/workflow-stash
+  cp CHANGELOG.md /tmp/workflow-stash/CHANGELOG.md
+fi
+
+# Switch branches
+git checkout main
+
+# Restore the file
+if [ -f "/tmp/workflow-stash/CHANGELOG.md" ]; then
+  cp /tmp/workflow-stash/CHANGELOG.md CHANGELOG.md
+  rm -rf /tmp/workflow-stash
+fi
+```
+
+**Key Learnings:**
+- Always check if files are tracked before switching branches
+- Use `git ls-files --error-unmatch` to check if a file is tracked
+- Temporarily save untracked files that might cause conflicts
+- Clean up temporary files after restoration

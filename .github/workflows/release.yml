@@ -247,9 +247,24 @@ jobs:
           # Check if we're in detached HEAD state (typical for tag checkouts)
           if [ -z "$(git branch --show-current)" ]; then
             echo "In detached HEAD state - checking out main branch"
+            
+            # Handle any untracked files that might block checkout
+            if [ -f "CHANGELOG.md" ] && ! git ls-files --error-unmatch CHANGELOG.md >/dev/null 2>&1; then
+              echo "CHANGELOG.md is untracked, stashing it temporarily"
+              mkdir -p /tmp/workflow-stash
+              cp CHANGELOG.md /tmp/workflow-stash/CHANGELOG.md
+            fi
+            
             git fetch origin main
             git checkout main
             git pull origin main
+            
+            # Restore the CHANGELOG.md if we stashed it
+            if [ -f "/tmp/workflow-stash/CHANGELOG.md" ]; then
+              echo "Restoring CHANGELOG.md"
+              cp /tmp/workflow-stash/CHANGELOG.md CHANGELOG.md
+              rm -rf /tmp/workflow-stash
+            fi
           fi
           
           # Add and commit changelog if it was modified
