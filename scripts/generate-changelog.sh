@@ -5,28 +5,54 @@
 
 set -e
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Check if output is to a terminal (for color support)
+if [ -t 1 ] && [ -z "${NO_COLOR}" ]; then
+    # Colors for output
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
+    BLUE='\033[0;34m'
+    NC='\033[0m' # No Color
+else
+    # No colors when output is redirected or NO_COLOR is set
+    RED=''
+    GREEN=''
+    YELLOW=''
+    BLUE=''
+    NC=''
+fi
 
 # Function to print colored output
 print_status() {
-    echo -e "${BLUE}[INFO]${NC} $1"
+    if [ -n "${BLUE}" ]; then
+        echo -e "${BLUE}[INFO]${NC} $1" >&2
+    else
+        echo "[INFO] $1" >&2
+    fi
 }
 
 print_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
+    if [ -n "${GREEN}" ]; then
+        echo -e "${GREEN}[SUCCESS]${NC} $1" >&2
+    else
+        echo "[SUCCESS] $1" >&2
+    fi
 }
 
 print_warning() {
-    echo -e "${YELLOW}[WARNING]${NC} $1"
+    if [ -n "${YELLOW}" ]; then
+        echo -e "${YELLOW}[WARNING]${NC} $1" >&2
+    else
+        echo "[WARNING] $1" >&2
+    fi
 }
 
 print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
+    if [ -n "${RED}" ]; then
+        echo -e "${RED}[ERROR]${NC} $1" >&2
+    else
+        echo "[ERROR] $1" >&2
+    fi
 }
 
 # Function to get the latest tag

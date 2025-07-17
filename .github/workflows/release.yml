@@ -197,7 +197,7 @@ jobs:
           
           # Generate changelog for this version
           echo "Generating changelog for version $VERSION..."
-          ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_entry.txt
+          NO_COLOR=1 ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_entry.txt
           
           # Try to extract release notes from RELEASE_NOTES.md first
           RELEASE_NOTES=""
@@ -226,10 +226,10 @@ jobs:
           # Update CHANGELOG.md if it exists, or create it
           if [ -f "CHANGELOG.md" ]; then
             echo "Updating CHANGELOG.md..."
-            ./scripts/generate-changelog.sh --update CHANGELOG.md "$VERSION"
+            NO_COLOR=1 ./scripts/generate-changelog.sh --update CHANGELOG.md "$VERSION"
           else
             echo "Creating CHANGELOG.md..."
-            ./scripts/generate-changelog.sh --full CHANGELOG.md
+            NO_COLOR=1 ./scripts/generate-changelog.sh --full CHANGELOG.md
           fi
           
       - name: Commit updated changelog

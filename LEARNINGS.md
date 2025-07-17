@@ -506,3 +506,44 @@ When the workflow updates version in build.gradle.kts, it creates local changes 
 git checkout -- app/build.gradle.kts || true
 ```
 This ensures only CHANGELOG.md is committed back to the repository, while version updates are used only for the build process.
+
+### Issue: ANSI color codes appearing in GitHub release notes
+**Date:** 2025-01-16
+**Error:** Release notes showing escape sequences like `�[0;34m[INFO]�[0m`
+
+**Root Cause:**
+The changelog generation script was outputting ANSI color codes even when output was redirected to a file. These escape sequences were then included in the release notes.
+
+**Solutions:**
+1. Detect when output is not to a terminal using `[ -t 1 ]`
+2. Check for NO_COLOR environment variable
+3. Redirect status messages to stderr instead of stdout
+4. Set NO_COLOR=1 when calling the script in workflows
+
+**Fixed Script Logic:**
+```bash
+# Check if output is to a terminal
+if [ -t 1 ] && [ -z "${NO_COLOR}" ]; then
+    # Enable colors
+    BLUE='\033[0;34m'
+    NC='\033[0m'
+else
+    # Disable colors
+    BLUE=''
+    NC=''
+fi
+
+# Print status to stderr, not stdout
+echo "[INFO] $1" >&2
+```
+
+**Workflow Usage:**
+```bash
+NO_COLOR=1 ./scripts/generate-changelog.sh --incremental "$VERSION" > changelog_entry.txt
+```
+
+**Key Learnings:**
+- Always check if output is to a terminal before using ANSI colors
+- Status messages should go to stderr, actual output to stdout
+- Set NO_COLOR=1 environment variable in CI/CD pipelines
+- Test scripts with redirected output to catch color code issues
