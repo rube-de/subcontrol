@@ -248,22 +248,33 @@ jobs:
           if [ -z "$(git branch --show-current)" ]; then
             echo "In detached HEAD state - checking out main branch"
             
-            # Use git stash to handle any local changes including untracked files
-            echo "Stashing local changes including untracked files"
-            git add -A  # Stage all files including untracked
-            git stash push -m "Temporary stash for branch switch" --include-untracked
+            # Save only the files we care about (CHANGELOG.md and release_notes.txt)
+            echo "Saving generated files"
+            if [ -f "CHANGELOG.md" ]; then
+              cp CHANGELOG.md CHANGELOG.md.temp
+            fi
+            if [ -f "release_notes.txt" ]; then
+              cp release_notes.txt release_notes.txt.temp
+            fi
+            
+            # Clean any local changes to avoid conflicts
+            echo "Cleaning local changes"
+            git clean -fd
+            git reset --hard HEAD
             
             # Now we can safely switch branches
             git fetch origin main
             git checkout main
             git pull origin main
             
-            # Pop the stash to restore our changes
-            echo "Restoring stashed changes"
-            git stash pop || true  # Don't fail if there are conflicts
-            
-            # If CHANGELOG.md was in the stash but not in the working tree, unstage it
-            git reset HEAD CHANGELOG.md 2>/dev/null || true
+            # Restore our saved files
+            echo "Restoring generated files"
+            if [ -f "CHANGELOG.md.temp" ]; then
+              mv CHANGELOG.md.temp CHANGELOG.md
+            fi
+            if [ -f "release_notes.txt.temp" ]; then
+              mv release_notes.txt.temp release_notes.txt
+            fi
           fi
           
           # Add and commit changelog if it was modified
